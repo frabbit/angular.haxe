@@ -22,7 +22,8 @@ class Main
 {
 	static function main ()
 	{
-		// controller definition, the parameter types determine which dependencies needs to be injected.
+		// controller definition, the parameter types determine
+		// which dependencies needs to be injected.
 
 		function appController (scope:Scope, config:Config) {
 			trace("appController initialized");
@@ -33,7 +34,9 @@ class Main
 
 		var module =
 			Angular.module("myModule", [])
-			.factory(Config.new) // no need give the factory a name, the link is created by the types
+			// no need give the factory a name,
+			// the link is created by the types
+			.factory(Config.new)
 			.controller(appController);
 	}
 }
