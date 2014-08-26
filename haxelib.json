@@ -1,0 +1,11 @@
+{
+  "name": "angular.haxe",
+  "url": "https://github.com/frabbit/angular.haxe",
+  "license": "MIT",
+  "classPath": "src",
+  "tags": ["angular", "angular.js", "extern"],
+  "description": "Toolset for using angular.js in haxe applications",
+  "releasenote": "initial release",
+  "version": "0.0.1",
+  "contributors": ["frabbit"]
+}
