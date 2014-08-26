@@ -35,7 +35,6 @@ class Main
 			Angular.module("myModule", [])
 			.factory(Config.new) // no need give the factory a name, the link is created by the types
 			.controller(appController);
-		}
 	}
 }
 ```
