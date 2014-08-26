@@ -57,7 +57,9 @@ See [Sample 2](sample/sample-02) for a slightly larger working example. The gene
 
 here are same snippets which highlight differences of angular.haxe vs pure angular.js
 
-# factory / service registration
+# Factory / Service registration with dependencies
+
+Factory registration with js.
 
 ```js
 
@@ -67,14 +69,18 @@ function MyService (timeout, location) {
 
 // register as factory
 angular.module("myModule", [])
-	.factory("myConfig", ["$timeout", "$location", function (timeout, location) {
-		return new Config(timeout, location);
+	.factory("myService", ["$timeout", "$location", function (timeout, location) {
+		return new MyService(timeout, location);
 	}])
 
 ```
 In angular.haxe dependency injection in general is based on the type to achieve more type safety. This type gets translated into a string at compile time, e.g. my.pack.MyService becomes "my.pack.MyService". This translation is done through macros which run at compile time and convert the abstract syntax tree in such a way that the generated code is very similar to the js code.
 
 ```haxe
+import angular.service.Timeout;
+import angular.service.Location;
+import angular.Angular;
+
 class MyService {
 	public function new (timeout:Timeout, location:Location) {
 		// do something with timeout and location
@@ -96,6 +102,7 @@ Angular.module("myModule", [])
 	}]);
 ```
 
+You may wonder why a type of a core angular services like Timeout are translated to $timeout instead of "angular.service.Timeout". The reason for this is that the core types are annotated with speacial metadata like @:injectionName("$timeout"). Types with this metadata are handled in special way inside of macros like factory, the value inside of this metadata is used instead of the full qualified class name.
 
 
 
