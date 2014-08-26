@@ -76,7 +76,6 @@ class Main
 			scope.set("clear", news.clear);
 		}
 
-
 		var newsDirective = DirectiveBuilder.mk()
 			.templateConstFile("NewsTemplate")
 			.controller(newsController).build;
