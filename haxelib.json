@@ -3,7 +3,7 @@
   "url": "https://github.com/frabbit/angular.haxe",
   "license": "MIT",
   "classPath": "src",
-  "tags": ["angular", "angular.js", "extern"],
+  "tags": ["angular", "angular.js", "externs"],
   "description": "Toolset for using angular.js in haxe applications",
   "releasenote": "initial release",
   "version": "0.0.1",
