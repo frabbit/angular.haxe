@@ -1,14 +1,10 @@
 package angular.support;
 
 
-
-import haxe.Constraints;
-
-
 import haxe.ds.StringMap;
+import haxe.ds.Option;
 
-
-#if !macro
+import angular.internal.DirectiveBuilderMacros;
 import angular.service.Element;
 import angular.Angular;
 import angular.service.Attributes;
@@ -17,19 +13,9 @@ import angular.service.Scope;
 import angular.Module;
 import angular.service.Attributes;
 import angular.service.Controller;
-//using kp.tools.CoreUsing;
-import haxe.ds.Option;
-using angular.internal.Options;
 import angular.service.Scope;
 
-//using scuts.core.Iterators;
-#end
-
-import haxe.macro.Expr;
-
-
-#if !macro
-
+using angular.internal.Options;
 using angular.support.DirectiveBuilder.LinkOps;
 
 private typedef LinkingFunction = Scope->Element->Attributes->Controller->TranscludeFn->Void;
@@ -46,12 +32,12 @@ class LinkOps {
 		case At: "@";
 		case Eq: "=";
 		case And: "&";
-
 	}
 }
-#end
-class DirectiveBuilder {
-	#if !macro
+
+class DirectiveBuilder extends DirectiveBuilderMacros
+{
+
 	var _isolatedScope : Bool;
 	var _childScope : Bool;
 	var _replace : Option<Bool>;
@@ -228,15 +214,8 @@ class DirectiveBuilder {
 		_controller = Some(arr);
 		return this;
 	}
-	#end
 
-	macro public function controller (ethis:Expr, f:ExprOf<Function>)
-	{
-		return angular.internal.DirectiveBuilderImpl.controller(ethis, f);
-	}
-	macro public function templateConstFile (ethis:Expr, f:String)
-	{
-		return angular.internal.DirectiveBuilderImpl.templateConstFile(ethis, f);
-	}
+
+
 
 }

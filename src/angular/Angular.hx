@@ -38,15 +38,11 @@ abstract TranscludeFn(Dynamic) {
 @:native("window.angular")
 extern class Angular {
 
-
 	@:overload(function (name:String, ?configFn:ConfigFunction):Module {})
 	public static function module (name:String, requires:Array<String>, ?configFn:ConfigFunction):Module;
 
-
 	public static function bootstrap (el:js.html.Element, ?modules:Array<String>):Module;
 
-
-	//@:overload(function (d:DOMWindow):Element {})
 	@:overload(function (d:Document):Element {})
 	public static function element (d:js.html.Element):Element;
 
