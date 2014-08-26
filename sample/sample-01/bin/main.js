@@ -1,4 +1,10 @@
 (function () { "use strict";
+function $extend(from, fields) {
+	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
+	for (var name in fields) proto[name] = fields[name];
+	if( fields.toString !== Object.prototype.toString ) proto.toString = fields.toString;
+	return proto;
+}
 var HxOverrides = function() { };
 HxOverrides.__name__ = true;
 HxOverrides.iter = function(a) {
@@ -146,6 +152,12 @@ angular._Angular.TranscludeFn_Impl_.withoutScope = function(this1,link) {
 	this1(link);
 };
 angular.internal = {};
+angular.internal.ModuleMacros = function() { };
+angular.internal.ModuleMacros.__name__ = true;
+angular.internal.DirectiveBuilderMacros = function() { };
+angular.internal.DirectiveBuilderMacros.__name__ = true;
+angular.internal.InjectorMacros = function() { };
+angular.internal.InjectorMacros.__name__ = true;
 angular.internal.Options = function() { };
 angular.internal.Options.__name__ = true;
 angular.internal.Options.each = function(o,f) {
@@ -221,7 +233,8 @@ angular.support.DirectiveBuilder.__name__ = true;
 angular.support.DirectiveBuilder.mk = function() {
 	return new angular.support.DirectiveBuilder();
 };
-angular.support.DirectiveBuilder.prototype = {
+angular.support.DirectiveBuilder.__super__ = angular.internal.DirectiveBuilderMacros;
+angular.support.DirectiveBuilder.prototype = $extend(angular.internal.DirectiveBuilderMacros.prototype,{
 	transclude: function(b) {
 		this._transclude = haxe.ds.Option.Some(b);
 		return this;
@@ -369,7 +382,7 @@ angular.support.DirectiveBuilder.prototype = {
 		this._controller = haxe.ds.Option.Some(arr);
 		return this;
 	}
-};
+});
 var haxe = {};
 haxe.Log = function() { };
 haxe.Log.__name__ = true;
