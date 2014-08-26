@@ -6,6 +6,6 @@
   "tags": ["angular", "angular.js", "externs"],
   "description": "Toolset for using angular.js in haxe applications",
   "releasenote": "initial release",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "contributors": ["frabbit"]
 }
