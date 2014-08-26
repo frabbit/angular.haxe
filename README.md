@@ -8,8 +8,7 @@ It's currently incomplete, feel free to add pull requests or become a contributo
 
 
 
-Example of angular.haxe dependency injection
-============================================
+# Example of angular.haxe dependency injection
 
 ```haxe
 // a regular haxe model
@@ -53,5 +52,50 @@ class Main
 ```
 
 See [Sample 2](sample/sample-02) for a slightly larger working example. The generating js file for this example can be found [here](sample/sample-02/bin/main.js).
+
+# angular.haxe vs angular.js
+
+here are same snippets which highlight differences of angular.haxe vs pure angular.js
+
+# factory / service registration
+
+```js
+
+function MyService (timeout, location) {
+	// do something with timeout and location
+}
+
+// register as factory
+angular.module("myModule", [])
+	.factory("myConfig", ["$timeout", "$location", function (timeout, location) {
+		return new Config(timeout, location);
+	}])
+
+```
+In angular.haxe dependency injection in general is based on the type to achieve more type safety. This type gets translated into a string at compile time, e.g. my.pack.MyService becomes "my.pack.MyService". This translation is done through macros which run at compile time and convert the abstract syntax tree in such a way that the generated code is very similar to the js code.
+
+```haxe
+class MyService {
+	public function new (timeout:Timeout, location:Location) {
+		// do something with timeout and location
+	}
+}
+
+// register as factory
+Angular.module("myModule", [])
+	.factory(MyService.new);
+```
+This generated js code looks similar to the next snippet.
+```js
+
+function MyService { .... }
+
+Angular.module("myModule", [])
+	.factory("MyService", ["$timeout", "$location", function (a1, a2) {
+		return new MyService(a1,a2)
+	}]);
+```
+
+
 
 
