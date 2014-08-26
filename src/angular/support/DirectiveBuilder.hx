@@ -53,6 +53,8 @@ class DirectiveBuilder extends DirectiveBuilderMacros
 	var _compile : Option<Dynamic>;
 	var _priority : Option<Int>;
 
+	var _templateUrl : Option<String>;
+
 	public function new ()
 	{
 		_replace = None;
@@ -64,6 +66,7 @@ class DirectiveBuilder extends DirectiveBuilderMacros
 		_compile = None;
 		_transclude = None;
 		_priority = None;
+		_templateUrl = None;
 		_isolatedScope = true;
 		_childScope = true;
 	}
@@ -150,6 +153,7 @@ class DirectiveBuilder extends DirectiveBuilderMacros
 			}
 		}
 		_template.each(set.bind(r, "template", _));
+		_templateUrl.each(set.bind(r, "templateUrl", _));
 		_controller.each(set.bind(r, "controller", _));
 
 		_transclude.each(set.bind(r, "transclude",_));
@@ -181,6 +185,12 @@ class DirectiveBuilder extends DirectiveBuilderMacros
 	public function templateConst (x:String)
 	{
 		_template = Some(function () return x);
+		return this;
+	}
+
+	public function templateUrl (x:String)
+	{
+		_templateUrl = Some(x);
 		return this;
 	}
 

@@ -105,4 +105,63 @@ Angular.module("myModule", [])
 You may wonder why a type of a core angular services like Timeout are translated to $timeout instead of "angular.service.Timeout". The reason for this is that the core types are annotated with speacial metadata like @:injectionName("$timeout"). Types with this metadata are handled in special way inside of macros like factory, the value inside of this metadata is used instead of the full qualified class name.
 
 
+## Controller
+
+Controller in angular.js
+
+```js
+angular.module("myModule", [])
+	.factory("myService", ["$timeout", "$location", function (timeout, location) {
+		return new MyService(timeout, location);
+	}])
+	.controller("MyController", ["$scope", "myService", function (scope, myService) {
+		// do something in your controller
+	}])
+```
+
+The same logic in haxe
+
+```haxe
+Angular.module("myModule", [])
+	.factory(MyService.new);
+	.controller("MyController", function (scope:Scope, myService:MyService) {
+		// do something
+	})
+```
+
+## Directives
+
+```js
+angular.module("myModule", [])
+	.directive('myDialog', function() {
+	    return {
+	      restrict: 'E',
+	      transclude: true,
+	      scope: {},
+	      templateUrl: 'my-dialog.html',
+	      link: function (scope, element) {
+	        scope.name = 'Jeff';
+	      }
+	    };
+	  });
+
+```
+
+While you can define the directive in the same way (very dynamic), you can also use the class `angular.support.DirectiveBuilder` to create a directive. This class is a DSL to build a directive step by step. Note that the link function requires all five supported parameters instead of just the 2 like in the js version. But you can also write `function (scope:Scope, e:Element, _,_,_) {` if you don't require the last parameters.
+
+```haxe
+Angular.module("myModule", [])
+	.directive('myDialog',
+		DirectiveBuilder.mk()
+			.restrictToElement()
+			.transclude(true)
+			.isolatedScope()
+			.templateUrl('my-dialog.html')
+			.link(function (scope:Scope, e:Element, a:Attributes, c:Controller, t:TranscludeFn) {
+				scope.set("name", "Jeff");
+			})
+			.build
+	);
+
+```
 
