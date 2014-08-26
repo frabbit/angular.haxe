@@ -131,6 +131,8 @@ Angular.module("myModule", [])
 
 ## Directives
 
+Directive in angular.js
+
 ```js
 angular.module("myModule", [])
 	.directive('myDialog', function() {
