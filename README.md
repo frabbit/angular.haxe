@@ -52,6 +52,6 @@ class Main
 </html>
 ```
 
-see [Sample 2](sample/sample-02) for a slightly larger working example
+See [Sample 2](sample/sample-02) for a slightly larger working example. The generating js file for this example can be found [here](sample/sample-02/bin/main.js).
 
 
