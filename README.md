@@ -57,7 +57,7 @@ See [Sample 2](sample/sample-02) for a slightly larger working example. The gene
 
 here are same snippets which highlight differences of angular.haxe vs pure angular.js
 
-# Factory / Service registration with dependencies
+## Factory / Service registration with dependencies
 
 Factory registration with js.
 
