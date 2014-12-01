@@ -27,6 +27,8 @@ extern class Scope
 	@:native("$broadcast") public function broadcast(name:String, ?data:Dynamic):Void;
 
 	@:native("$watch") public function watch(expr:String, listener:Function, ?objectEquality:Bool = false):UnregisterFn;
+	
+	@:native("$watchGroup") public function watchGroup(expr:Array<String>, listener:Function, ?objectEquality:Bool = false):UnregisterFn;
 
 	@:overload(function (f:Void->Void):Void {})
 	@:native("$apply") public function apply(?expr:String):Void;
