@@ -11,7 +11,7 @@ extern class Scope
 	@:overload(function (expr:String):Dynamic {})
 	@:native("$eval") public function eval(f:Function):Dynamic;
 
-	@:native("$parent")public function parent():Scope;
+	@:native("$parent")public var parent:Scope;
 
 	@:native("$destroy") public function destroy():Void;
 
