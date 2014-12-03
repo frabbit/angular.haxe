@@ -3,6 +3,7 @@ package angular.internal;
 
 
 import angular.internal.Support;
+import haxe.ds.Option;
 import haxe.macro.Expr;
 import haxe.macro.Context;
 import haxe.macro.Type;
@@ -124,6 +125,16 @@ class ModuleImpl {
 
 		var cpos = Context.currentPos();
 
+		var origExpr = f;
+		var castType = switch (f.expr) {
+			case EParenthesis({expr:ECheckType(a,t)}):
+
+				f = a;
+				Some(t);
+			case _ :
+				None;
+		}
+
 		var t = Context.typeof(f);
 
 		var named = Support.getNamedArgs(f, t);
@@ -135,7 +146,21 @@ class ModuleImpl {
 
 				var injectArgs = Support.convertArgsToParams(args, named, cpos);
 
-				{ injectArgs : injectArgs, name : Support.getIdForType(ret) }
+				var name = switch (castType) {
+					case Some(x):
+						try {
+							var ct = haxe.macro.TypeTools.toComplexType(ret);
+							var t = Context.typeof(macro ( (cast null : $ct) : $x));
+							Support.getIdForType(t);
+						} catch (x:Error) {
+							//throw new Error(x, origExpr.pos);
+							haxe.macro.Context.error(x.message, origExpr.pos);
+
+						}
+					case None: Support.getIdForType(ret);
+				}
+
+				{ injectArgs : injectArgs, name : name }
 			default:
 				Context.error("f must be a function returning a type", cpos);
 
