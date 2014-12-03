@@ -1,4 +1,5 @@
 (function () { "use strict";
+var console = (1,eval)('this').console || {log:function(){}};
 function $extend(from, fields) {
 	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
 	for (var name in fields) proto[name] = fields[name];
@@ -71,14 +72,13 @@ Main.main = function() {
 		};
 	}]).directive("news",[newsDirective]).controller("AppController",["$scope","Config",appController]);
 };
-var IMap = function() { };
 var Reflect = function() { };
 Reflect.setField = function(o,field,value) {
 	o[field] = value;
 };
 var angular = {};
 angular._Angular = {};
-angular._Angular.TranscludeFn_Impl_ = function() { };
+angular._Angular.TranscludeFn_Impl_ = {};
 angular._Angular.TranscludeFn_Impl_.call = function(this1,scope,link) {
 	this1(scope,link);
 };
@@ -148,6 +148,7 @@ angular.support.DirectiveBuilder = function() {
 	this._compile = haxe.ds.Option.None;
 	this._transclude = haxe.ds.Option.None;
 	this._priority = haxe.ds.Option.None;
+	this._templateUrl = haxe.ds.Option.None;
 	this._isolatedScope = true;
 	this._childScope = true;
 };
@@ -237,29 +238,34 @@ angular.support.DirectiveBuilder.prototype = $extend(angular.internal.DirectiveB
 				f2(o2,a12,a22);
 			};
 		})(set,r,"template"));
-		angular.internal.Options.each(this._controller,(function(f3,o3,a13) {
+		angular.internal.Options.each(this._templateUrl,(function(f3,o3,a13) {
 			return function(a23) {
 				f3(o3,a13,a23);
 			};
-		})(set,r,"controller"));
-		angular.internal.Options.each(this._transclude,(function(f4,o4,a14) {
+		})(set,r,"templateUrl"));
+		angular.internal.Options.each(this._controller,(function(f4,o4,a14) {
 			return function(a24) {
 				f4(o4,a14,a24);
 			};
-		})(set,r,"transclude"));
-		angular.internal.Options.each(this._link,(function(f5,o5,a15) {
+		})(set,r,"controller"));
+		angular.internal.Options.each(this._transclude,(function(f5,o5,a15) {
 			return function(a25) {
 				f5(o5,a15,a25);
 			};
-		})(set,r,"link"));
-		angular.internal.Options.each(this._compile,(function(f6,o6,a16) {
+		})(set,r,"transclude"));
+		angular.internal.Options.each(this._link,(function(f6,o6,a16) {
 			return function(a26) {
 				f6(o6,a16,a26);
 			};
-		})(set,r,"compile"));
-		angular.internal.Options.each(this._priority,(function(f7,o7,a17) {
+		})(set,r,"link"));
+		angular.internal.Options.each(this._compile,(function(f7,o7,a17) {
 			return function(a27) {
 				f7(o7,a17,a27);
+			};
+		})(set,r,"compile"));
+		angular.internal.Options.each(this._priority,(function(f8,o8,a18) {
+			return function(a28) {
+				f8(o8,a18,a28);
 			};
 		})(set,r,"priority"));
 		return r;
@@ -281,6 +287,10 @@ angular.support.DirectiveBuilder.prototype = $extend(angular.internal.DirectiveB
 		this._template = haxe.ds.Option.Some(function() {
 			return x;
 		});
+		return this;
+	}
+	,templateUrl: function(x) {
+		this._templateUrl = haxe.ds.Option.Some(x);
 		return this;
 	}
 	,compile: function(f) {
@@ -305,6 +315,7 @@ angular.support.DirectiveBuilder.prototype = $extend(angular.internal.DirectiveB
 	}
 });
 var haxe = {};
+haxe.IMap = function() { };
 haxe.ds = {};
 haxe.ds.Option = { __constructs__ : ["Some","None"] };
 haxe.ds.Option.Some = function(v) { var $x = ["Some",0,v]; $x.__enum__ = haxe.ds.Option; return $x; };
@@ -313,7 +324,7 @@ haxe.ds.Option.None.__enum__ = haxe.ds.Option;
 haxe.ds.StringMap = function() {
 	this.h = { };
 };
-haxe.ds.StringMap.__interfaces__ = [IMap];
+haxe.ds.StringMap.__interfaces__ = [haxe.IMap];
 haxe.ds.StringMap.prototype = {
 	set: function(key,value) {
 		this.h["$" + key] = value;
