@@ -1,4 +1,5 @@
 (function () { "use strict";
+var console = (1,eval)('this').console || {log:function(){}};
 function $extend(from, fields) {
 	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
 	for (var name in fields) proto[name] = fields[name];
@@ -44,7 +45,7 @@ FooProvider2.prototype = {
 	}
 };
 var _Main = {};
-_Main.Whoot_Impl_ = function() { };
+_Main.Whoot_Impl_ = {};
 _Main.Whoot_Impl_.__name__ = true;
 _Main.Whoot_Impl_._new = function() {
 	return "whoot";
@@ -75,8 +76,8 @@ Main.main = function() {
 	}]);
 	m.filter("lower",["Whoot",function(w2) {
 		haxe.Log.trace(w2,{ fileName : "Main.hx", lineNumber : 93, className : "Main", methodName : "main"});
-		return function(x) {
-			return x.toLowerCase();
+		return function(x1) {
+			return x1.toLowerCase();
 		};
 	}]);
 	m.provider("myFoo",["$logProvider",function(argWrapper0) {
@@ -97,32 +98,32 @@ Main.main = function() {
 		haxe.Log.trace(l,{ fileName : "Main.hx", lineNumber : 111, className : "Main", methodName : "main"});
 		l.debugEnabled(true);
 	}]);
-	m.controller("MyController",["$scope","foo",function(s,m1) {
+	m.controller("MyController",["$scope","foo",function(s1,m1) {
 		haxe.Log.trace("init controller",{ fileName : "Main.hx", lineNumber : 117, className : "Main", methodName : "main"});
-		haxe.Log.trace("scope phase:" + s.$$phase,{ fileName : "Main.hx", lineNumber : 118, className : "Main", methodName : "main"});
+		haxe.Log.trace("scope phase:" + s1.$$phase,{ fileName : "Main.hx", lineNumber : 118, className : "Main", methodName : "main"});
 		haxe.Log.trace(m1,{ fileName : "Main.hx", lineNumber : 119, className : "Main", methodName : "main"});
 	}]);
 	m.run([function() {
 		haxe.Log.trace("wtf",{ fileName : "Main.hx", lineNumber : 123, className : "Main", methodName : "main"});
 	}]);
-	m.run(["MyModel","$rootScope","$injector",function(m2,r,inj) {
+	m.run(["MyModel","$rootScope","$injector",function(m2,r1,inj) {
 		haxe.Log.trace(m2,{ fileName : "Main.hx", lineNumber : 126, className : "Main", methodName : "main"});
-		haxe.Log.trace(r.$root.$$phase,{ fileName : "Main.hx", lineNumber : 127, className : "Main", methodName : "main"});
-		var t = inj.get("$timeout");
-		t(function() {
+		haxe.Log.trace(r1.$root.$$phase,{ fileName : "Main.hx", lineNumber : 127, className : "Main", methodName : "main"});
+		var t1 = inj.get("$timeout");
+		t1(function() {
 			haxe.Log.trace("hello11",{ fileName : "Main.hx", lineNumber : 130, className : "Main", methodName : "main"});
 		},1);
 	}]);
-	m.run(["$rootElement",function(r1) {
-		haxe.Log.trace(r1.injector(),{ fileName : "Main.hx", lineNumber : 134, className : "Main", methodName : "main"});
+	m.run(["$rootElement",function(r2) {
+		haxe.Log.trace(r2.injector(),{ fileName : "Main.hx", lineNumber : 134, className : "Main", methodName : "main"});
 	}]);
-	var directive = function(r2) {
-		haxe.Log.trace(r2,{ fileName : "Main.hx", lineNumber : 138, className : "Main", methodName : "main"});
-		return new angular.support.DirectiveBuilder().templateConst("<div></div>").controllerDynamic(["$scope","$timeout",function(s1,t1) {
-			var x1 = t1(function() {
+	var directive = function(r) {
+		haxe.Log.trace(r,{ fileName : "Main.hx", lineNumber : 138, className : "Main", methodName : "main"});
+		return new angular.support.DirectiveBuilder().templateConst("<div></div>").controllerDynamic(["$scope","$timeout",function(s,t) {
+			var x = t(function() {
 				haxe.Log.trace("timer call",{ fileName : "Main.hx", lineNumber : 142, className : "Main", methodName : "main"});
 			},10);
-			angular.service._Timeout.Timeout_Impl_.cancel(t1,x1);
+			angular.service._Timeout.Timeout_Impl_.cancel(t,x);
 		}]).build();
 	};
 	m.directive("myDirective",["$browser",directive]);
@@ -133,8 +134,6 @@ Main.main = function() {
 	haxe.Log.trace("do bootstrap",{ fileName : "Main.hx", lineNumber : 157, className : "Main", methodName : "main"});
 	window.angular.bootstrap(new js.JQuery("body")[0],["myModule"]);
 };
-var IMap = function() { };
-IMap.__name__ = true;
 Math.__name__ = true;
 var Reflect = function() { };
 Reflect.__name__ = true;
@@ -143,7 +142,7 @@ Reflect.setField = function(o,field,value) {
 };
 var angular = {};
 angular._Angular = {};
-angular._Angular.TranscludeFn_Impl_ = function() { };
+angular._Angular.TranscludeFn_Impl_ = {};
 angular._Angular.TranscludeFn_Impl_.__name__ = true;
 angular._Angular.TranscludeFn_Impl_.call = function(this1,scope,link) {
 	this1(scope,link);
@@ -191,7 +190,7 @@ angular.internal.Options.orElse = function(o,f) {
 var js = {};
 angular.service = {};
 angular.service._Timeout = {};
-angular.service._Timeout.Timeout_Impl_ = function() { };
+angular.service._Timeout.Timeout_Impl_ = {};
 angular.service._Timeout.Timeout_Impl_.__name__ = true;
 angular.service._Timeout.Timeout_Impl_.cancel = function(this1,promise) {
 	return this1.cancel(promise);
@@ -394,6 +393,8 @@ angular.support.DirectiveBuilder.prototype = $extend(angular.internal.DirectiveB
 	}
 });
 var haxe = {};
+haxe.IMap = function() { };
+haxe.IMap.__name__ = true;
 haxe.Log = function() { };
 haxe.Log.__name__ = true;
 haxe.Log.trace = function(v,infos) {
@@ -408,7 +409,7 @@ haxe.ds.StringMap = function() {
 	this.h = { };
 };
 haxe.ds.StringMap.__name__ = true;
-haxe.ds.StringMap.__interfaces__ = [IMap];
+haxe.ds.StringMap.__interfaces__ = [haxe.IMap];
 haxe.ds.StringMap.prototype = {
 	set: function(key,value) {
 		this.h["$" + key] = value;
@@ -455,18 +456,18 @@ js.Boot.__string_rec = function(o,s) {
 		if(o instanceof Array) {
 			if(o.__enum__) {
 				if(o.length == 2) return o[0];
-				var str = o[0] + "(";
+				var str2 = o[0] + "(";
 				s += "\t";
 				var _g1 = 2;
 				var _g = o.length;
 				while(_g1 < _g) {
-					var i = _g1++;
-					if(i != 2) str += "," + js.Boot.__string_rec(o[i],s); else str += js.Boot.__string_rec(o[i],s);
+					var i1 = _g1++;
+					if(i1 != 2) str2 += "," + js.Boot.__string_rec(o[i1],s); else str2 += js.Boot.__string_rec(o[i1],s);
 				}
-				return str + ")";
+				return str2 + ")";
 			}
 			var l = o.length;
-			var i1;
+			var i;
 			var str1 = "[";
 			s += "\t";
 			var _g2 = 0;
@@ -483,12 +484,12 @@ js.Boot.__string_rec = function(o,s) {
 		} catch( e ) {
 			return "???";
 		}
-		if(tostr != null && tostr != Object.toString) {
+		if(tostr != null && tostr != Object.toString && typeof(tostr) == "function") {
 			var s2 = o.toString();
 			if(s2 != "[object Object]") return s2;
 		}
 		var k = null;
-		var str2 = "{\n";
+		var str = "{\n";
 		s += "\t";
 		var hasp = o.hasOwnProperty != null;
 		for( var k in o ) {
@@ -498,12 +499,12 @@ js.Boot.__string_rec = function(o,s) {
 		if(k == "prototype" || k == "__class__" || k == "__super__" || k == "__interfaces__" || k == "__properties__") {
 			continue;
 		}
-		if(str2.length != 2) str2 += ", \n";
-		str2 += s + k + " : " + js.Boot.__string_rec(o[k],s);
+		if(str.length != 2) str += ", \n";
+		str += s + k + " : " + js.Boot.__string_rec(o[k],s);
 		}
 		s = s.substring(1);
-		str2 += "\n" + s + "}";
-		return str2;
+		str += "\n" + s + "}";
+		return str;
 	case "function":
 		return "<function>";
 	case "string":

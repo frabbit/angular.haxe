@@ -1,0 +1,15 @@
+<div>
+	<h2>Lates News</h2>
+	<ul>
+		<li ng-repeat="e in entries" ng-click="clickEntry(e)">
+			<p>text: {{e.text}}</p>
+			<p>image: {{e.img}}</p>
+		</li>
+		<div>
+			<input type="text" ng-model="newEntry.text">
+			<input type="text" ng-model="newEntry.img">
+			<button ng-click="addNews()">add</button>
+		</div>
+		<button ng-click="clear()">clear</button>
+	</ul>
+</div>
