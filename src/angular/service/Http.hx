@@ -25,23 +25,39 @@ config – {Object} – The configuration object that was used to generate the r
 statusText – {string} – HTTP status text of the response.
 */
 
-typedef HttpSuccessObj = Dynamic -> Int -> (String -> String) -> Dynamic -> String -> Dynamic;
-typedef HttpErrorObj = Dynamic -> Int -> (String -> String) -> Dynamic -> String -> Dynamic;
+typedef HttpResponseObj = {
+	data : Dynamic,
+	status : Int,
+	headers : String -> Null<String>,
+	config : Dynamic,
+	statusText : String
+}
 
-typedef HttpSuccessString = ?String -> ?Int -> ?(String -> String) -> ?Dynamic -> ?String -> Dynamic;
-typedef HttpErrorString = String -> Int -> (String -> String) -> Dynamic -> String -> Dynamic;
+typedef HttpResponseString = {
+	data : String,
+	status : Int,
+	headers : String -> Null<String>,
+	config : Dynamic,
+	statusText : String
+}
+
+typedef HttpSuccessObjFun = Dynamic -> Int -> (String -> String) -> Dynamic -> String -> Dynamic;
+typedef HttpErrorObjFun = Dynamic -> Int -> (String -> String) -> Dynamic -> String -> Dynamic;
+
+typedef HttpSuccessStringFun = ?String -> ?Int -> ?(String -> String) -> ?Dynamic -> ?String -> Dynamic;
+typedef HttpErrorStringFun = String -> Int -> (String -> String) -> Dynamic -> String -> Dynamic;
 
 extern class HttpPromise {
 
-	@:overload(function (success : HttpSuccessString, error : HttpErrorString) : Promise {})
-	@:overload(function (success : HttpSuccessString, error : HttpErrorObj) : Promise {})
-	@:overload(function (success : HttpSuccessObj, error : HttpErrorString) : Promise {})
-	public function then(success : HttpSuccessObj, error : HttpErrorObj) : Promise;
+	@:overload(function<T> (success : HttpResponseString -> T, error : HttpResponseString -> T) : Promise<T> {})
+	@:overload(function<T> (success : HttpResponseString -> T, error : HttpResponseObj -> T) : Promise<T> {})
+	@:overload(function<T> (success : HttpResponseObj -> T, error : HttpResponseString -> T) : Promise<T> {})
+	public function then<T>(success : HttpResponseObj -> T, ?error : HttpResponseObj -> T) : Promise<T>;
 
 
-	@:overload(function (f : HttpSuccessString) : HttpPromise {})
-	public function success(f : HttpSuccessObj) : HttpPromise;
+	@:overload(function (f : HttpSuccessStringFun) : HttpPromise {})
+	public function success(f : HttpSuccessObjFun) : HttpPromise;
 
-	@:overload(function (f : HttpSuccessString) : HttpPromise {})
-	public function error(f : HttpSuccessObj) : HttpPromise;
+	@:overload(function (f : HttpSuccessStringFun) : HttpPromise {})
+	public function error(f : HttpSuccessObjFun) : HttpPromise;
 }
