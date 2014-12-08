@@ -1,5 +1,6 @@
-
 package angular.provider;
+
+import haxe.Constraints.Function;
 
 @:injectionName("$filterProvider")
 extern class FilterProvider {

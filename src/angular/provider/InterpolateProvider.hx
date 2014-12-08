@@ -7,10 +7,10 @@ import angular.provider.InterpolateProvider;
 extern class InterpolateProvider {
 
 
-	@:overload(function ():String);
+	@:overload(function ():String {})
 	public function startSymbol (value:String):InterpolateProvider;
 
-	@:overload(function ():String);
+	@:overload(function ():String {})
 	public function endSymbol (value:String):InterpolateProvider;
 
 }
