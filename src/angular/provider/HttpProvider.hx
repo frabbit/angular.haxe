@@ -13,6 +13,6 @@ extern class HttpProvider {
 			put : String,
 			patch : String,
 		}
-	}
+	};
 
 }

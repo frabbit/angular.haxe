@@ -1,6 +1,8 @@
 
 package angular.touch;
 
+import angular.service.Element;
+
 private typedef Point = { x : Float, y : Float };
 
 typedef SwipeHandlers = {
