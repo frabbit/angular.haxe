@@ -4,9 +4,9 @@ package angular.service;
 
 
 @:injectionName("$timeout")
-@:callable abstract Timeout((Void->Void)->?Int->?Bool->Promise) {
+extern class Timeout {
 
-	public function cancel (promise:Promise):Bool {
-		return (this:Dynamic).cancel(promise);
-	}
+	@:selfCall public function timeout <T>(fn:Void->T, ?delay:Int, ?invokeApply:Bool):Promise<T>;
+
+	public function cancel (p:Promise<Dynamic>):Bool;
 }

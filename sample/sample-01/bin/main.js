@@ -123,7 +123,7 @@ Main.main = function() {
 			var x = t(function() {
 				haxe.Log.trace("timer call",{ fileName : "Main.hx", lineNumber : 142, className : "Main", methodName : "main"});
 			},10);
-			angular.service._Timeout.Timeout_Impl_.cancel(t,x);
+			t.cancel(x);
 		}]).build();
 	};
 	m.directive("myDirective",["$browser",directive]);
@@ -188,13 +188,6 @@ angular.internal.Options.orElse = function(o,f) {
 	}
 };
 var js = {};
-angular.service = {};
-angular.service._Timeout = {};
-angular.service._Timeout.Timeout_Impl_ = {};
-angular.service._Timeout.Timeout_Impl_.__name__ = true;
-angular.service._Timeout.Timeout_Impl_.cancel = function(this1,promise) {
-	return this1.cancel(promise);
-};
 angular.support = {};
 angular.support.LinkOp = { __ename__ : true, __constructs__ : ["At","Eq","And"] };
 angular.support.LinkOp.At = ["At",0];

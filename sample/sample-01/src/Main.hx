@@ -127,7 +127,7 @@ class Main {
 			trace(r.root.phase);
 
 			var t = inj.get(angular.service.Timeout);
-			t(function () { trace("hello11");}, 1);
+			t.timeout(function () { trace("hello11");}, 1);
 		});
 
 		m.run(function (r:RootElement) {
@@ -139,7 +139,7 @@ class Main {
 			return DirectiveBuilder.mk()
 				.templateConst("<div></div>")
 				.controller(function (s:Scope, t:Timeout ) {
-					var x = t(function () { trace("timer call");},10);
+					var x = t.timeout(function () { trace("timer call");},10);
 					t.cancel(x);
 
 				})
