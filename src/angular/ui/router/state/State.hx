@@ -10,13 +10,13 @@ extern class State {
 	public var transition : Promise<Dynamic>;
 
 	// Returns the state configuration object for any specific state or all states.
-	@:overload(function (?name : Dynamic, ?context : Dynamic) : Array<Dynamic> {})
-	@:overload(function (?name : Dynamic, ?context : Dynamic) : Dynamic {})
-	@:overload(function (?name : Dynamic, ?context : String) : Array<Dynamic> {})
-	@:overload(function (?name : Dynamic, ?context : String) : Dynamic {})
+	@:overload(function (?name : String, ?context : String) : Array<Dynamic> {})
 	@:overload(function (?name : String, ?context : Dynamic) : Array<Dynamic> {})
 	@:overload(function (?name : String, ?context : Dynamic) : Dynamic {})
-	@:overload(function (?name : String, ?context : String) : Array<Dynamic> {})
+	@:overload(function (?name : Dynamic, ?context : String) : Array<Dynamic> {})
+	@:overload(function (?name : Dynamic, ?context : String) : Dynamic {})
+	@:overload(function (?name : Dynamic, ?context : Dynamic) : Array<Dynamic> {})
+	@:overload(function (?name : Dynamic, ?context : Dynamic) : Dynamic {})
 	public function get(?name : String, ?context : String) : Dynamic;
 
 	public function go(to : String, ?params : Dynamic, ?options : Dynamic) : angular.Promise<Dynamic>;
