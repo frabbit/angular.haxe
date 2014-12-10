@@ -3,6 +3,9 @@ package angular.service;
 
 extern class Deferred<T> {
 	public var promise : Promise<T>;
+
+	public function resolve(value : T) : Void;
+	public function reject<U>(reason : U) : Void;
 }
 
 @:injectionName("$q")
