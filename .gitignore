@@ -1,2 +1,3 @@
-bin/spec.js*.sublime-*
+bin/spec.js
+*.sublime-*
 bin
