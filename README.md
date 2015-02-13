@@ -36,7 +36,7 @@ class Main
 			// no need give the factory a name,
 			// the link is created by the types
 			.factory(Config.new)
-			.controller(appController);
+			.controller("AppController", appController);
 	}
 }
 ```
