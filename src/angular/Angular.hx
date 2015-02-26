@@ -9,7 +9,6 @@ import angular.service.Scope;
 import haxe.Constraints.Function;
 
 import js.html.Document;
-import js.html.DOMWindow;
 
 
 import js.JQuery;
