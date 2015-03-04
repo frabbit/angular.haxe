@@ -19,13 +19,13 @@ extern class Route {
     /**
      * Object with all route configuration Objects as its properties.
      */
-    public var current: Dynamic;
+    public var routes: Dynamic;
 
     /**
      * Causes $route service to reload the current route even if $location hasn't changed.
      * As a result of that, ngView creates new scope and reinstantiates the controller.
      */
-    public function reload();
+    public function reload(): Void;
 
     /**
      * Causes $route service to update the current URL, replacing current route parameters
@@ -34,5 +34,5 @@ extern class Route {
      * remaining properties will be treated as query params.
      * @param newParams Dynamic
      */
-    public function updateParams(newParams: Dynamic);
+    public function updateParams(newParams: Dynamic) : Void;
 }
