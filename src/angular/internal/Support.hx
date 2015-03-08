@@ -107,24 +107,4 @@ class Support {
 		}
 	}
 
-
-	/*
-	public static function buildNamed ():Type
-	{
-		var myName = "foo";
-		var className = "Named_" + myName + "_" + Context.signature(Context.currentPos());
-
-		var pack = ["angular", "named"];
-
-		Context.defineType({
-			pack : pack,
-			name : className,
-			pos : Context.currentPos(),
-			kind : TDClass(null,null,false),
-			fields : []
-		});
-		return ComplexTypeTools.toType(TPath({pack: pack, name: className, params: []}));
-	}
-	*/
-
 }
