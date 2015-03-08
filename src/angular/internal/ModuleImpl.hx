@@ -172,7 +172,7 @@ class ModuleImpl {
 		return macro $ethis.factoryDynamic($v{name}, ( [$a{args}] : Array<Dynamic>) );
 	}
 
-	public static function directive (ethis:Expr, name:String, f:ExprOf<Function>):Expr
+	public static function directive (ethis:Expr, name:ExprOf<String>, f:ExprOf<Function>):Expr
 	{
 		var cpos = Context.currentPos();
 
@@ -191,10 +191,10 @@ class ModuleImpl {
 
 		var args = injectArgs.concat([f]);
 
-		return macro $ethis.directiveDynamic($v{name}, ( [$a{args}] : Array<Dynamic>) );
+		return macro $ethis.directiveDynamic($name, ( [$a{args}] : Array<Dynamic>) );
 	}
 
-	public static function filter (ethis:Expr, name:String, f:ExprOf<Function>):Expr
+	public static function filter (ethis:Expr, name:ExprOf<String>, f:ExprOf<Function>):Expr
 	{
 		var cpos = Context.currentPos();
 
@@ -213,14 +213,14 @@ class ModuleImpl {
 
 		var args = injectArgs.concat([f]);
 
-		return macro $ethis.filterDynamic($v{name}, ( [$a{args}] : Array<Dynamic>) );
+		return macro $ethis.filterDynamic($name, ( [$a{args}] : Array<Dynamic>) );
 	}
 
 
-	public static function controller (ethis:Expr, name:String, f : ExprOf<Function>):Expr
+	public static function controller (ethis:Expr, name:ExprOf<String>, f : ExprOf<Function>):Expr
 	{
 		var args = Support.makeControllerArgs(f);
-		return macro $ethis.controllerDynamic($v{name}, $args );
+		return macro $ethis.controllerDynamic($name, $args );
 	}
 
 	public static function config (ethis:Expr, f : ExprOf<Function>):Expr

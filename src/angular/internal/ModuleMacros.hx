@@ -15,17 +15,17 @@ class ModuleMacros {
 		return angular.internal.ModuleImpl.factory(ethis, f, as, name);
 	}
 
-	macro public function directive (ethis:Expr, name:String, f:ExprOf<Function>):Expr
+	macro public function directive (ethis:Expr, name:ExprOf<String>, f:ExprOf<Function>):Expr
 	{
 		return angular.internal.ModuleImpl.directive(ethis, name, f);
 	}
 
-	macro public function filter (ethis:Expr, name:String, f:ExprOf<Function>):Expr
+	macro public function filter (ethis:Expr, name:ExprOf<String>, f:ExprOf<Function>):Expr
 	{
 		return angular.internal.ModuleImpl.filter(ethis, name, f);
 	}
 
-	macro public function controller (ethis:Expr, name:String, f : ExprOf<Function>):Expr
+	macro public function controller (ethis:Expr, name:ExprOf<String>, f : ExprOf<Function>):Expr
 	{
 		return angular.internal.ModuleImpl.controller(ethis, name, f);
 	}
