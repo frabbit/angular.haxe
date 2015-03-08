@@ -3,11 +3,6 @@ package ;
 import angular.*;
 import angular.service.*;
 
-
-
-
-typedef CustomString<Const> = String;
-
 typedef Url = String;
 typedef Title = String;
 typedef Description = String;
@@ -25,10 +20,7 @@ class Main
 			.factory( function ():Url return "https://github.com/frabbit/angular.haxe")
 			.factory( function ():Title return "angular.haxe")
 			.factory( function ():Description return "Some words about angular.haxe...")
-
-
 			.controller("AppController", function (s:TypedScope<AppScope>, url:Url, title : Title, desc:Description) {
-
 				s.data = { url : url, title : title, description : desc };
 			});
 	}
