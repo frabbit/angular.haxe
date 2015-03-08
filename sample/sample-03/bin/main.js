@@ -1,10 +1,10 @@
 (function (console) { "use strict";
 var Main = function() { };
 Main.main = function() {
-	var appController = function(t) {
+	var appController = function(t,s) {
 		t.data = { lastName : "tom", firstName : "timmy"};
 	};
-	var module = window.angular.module("myModule",[]).controller("AppController",["$scope",appController]);
+	var module = window.angular.module("myModule",[]).controller("AppController",["$scope","$scope",appController]);
 };
 var angular = {};
 angular._Angular = {};
