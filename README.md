@@ -167,9 +167,14 @@ Angular.module("myModule", [])
 
 ```
 
+# Advanced Topics
+
 ## Typed Scope
 
 ```haxe
+import angular.*;
+import angular.service.*;
+
 typedef AppScope = { data : { firstName : String, lastName : String }};
 
 class Main
@@ -194,6 +199,9 @@ class Main
 ## Using the same type for multiple services
 
 ```haxe
+import angular.*;
+import angular.service.*;
+
 typedef CustomString<Const> = String;
 
 typedef AppScope = {
@@ -213,7 +221,8 @@ class Main
 			.factory( function ():CustomString<"desc"> return "Some words about angular.haxe...")
 
 
-			.controller("AppController", function (s:TypedScope<AppScope>, url:CustomString<"url">, title : CustomString<"title">, desc:CustomString<"desc">) {
+			.controller("AppController", function (s:TypedScope<AppScope>, url:CustomString<"url">, 
+				title : CustomString<"title">, desc:CustomString<"desc">) {
 
 				s.data = { url : url, title : title, description : desc };
 			});
