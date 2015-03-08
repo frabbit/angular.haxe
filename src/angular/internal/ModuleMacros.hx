@@ -5,14 +5,14 @@ import haxe.Constraints.Function;
 
 class ModuleMacros {
 
-	macro public function provider (ethis:Expr, f:ExprOf<Function>, ?name:String):Expr
+	macro public function provider (ethis:Expr, f:ExprOf<Function>):Expr
 	{
-		return angular.internal.ModuleImpl.provider(ethis, f, name);
+		return angular.internal.ModuleImpl.provider(ethis, f);
 	}
 
-	macro public function factory (ethis:Expr, f:ExprOf<Function>, ?as:Expr, ?name:String):Expr
+	macro public function factory (ethis:Expr, f:ExprOf<Function>):Expr
 	{
-		return angular.internal.ModuleImpl.factory(ethis, f, as, name);
+		return angular.internal.ModuleImpl.factory(ethis, f);
 	}
 
 	macro public function directive (ethis:Expr, name:ExprOf<String>, f:ExprOf<Function>):Expr

@@ -1,7 +1,6 @@
 package ;
 
 import angular.Angular;
-import angular.support.Named;
 import angular.service.Browser;
 import angular.service.Injector;
 import angular.provider.LogProvider;
@@ -75,7 +74,7 @@ class Main {
 
 		m.factory(MyModel.new);
 
-		m.factory(MyModel.mk, "foo");
+
 
 		m.factory(MyOtherModel.new);
 
@@ -96,16 +95,8 @@ class Main {
 			}
 		});
 
-		m.provider(function (t:LogProvider) {
-			trace(t);
-			trace("provider called");
-			return new FooProvider2();
-		}, "myFoo");
 
-		m.config(function (f:Named<"myFooProvider", FooProvider2>) {
-			trace("provider config called");
-			f.val = 10;
-		});
+
 
 		m.config(function (l:LogProvider) {
 			trace(l);
@@ -113,7 +104,7 @@ class Main {
 		});
 
 
-		m.controller("MyController", function (s:Scope, m:Named<"foo",MyModel>) {
+		m.controller("MyController", function (s:Scope, m:MyModel) {
 			trace("init controller");
 			trace("scope phase:" + s.phase);
 			trace(m);
@@ -148,9 +139,7 @@ class Main {
 
 		m.directive("myDirective", directive);
 
-		m.run(function (x:Named<"myFoo", Foo>) {
-			trace(x);
-		});
+
 
 		trace(Angular.version);
 

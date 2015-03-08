@@ -1,5 +1,4 @@
-(function () { "use strict";
-var console = (1,eval)('this').console || {log:function(){}};
+(function (console) { "use strict";
 function $extend(from, fields) {
 	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
 	for (var name in fields) proto[name] = fields[name];
@@ -327,17 +326,34 @@ haxe.ds.StringMap = function() {
 haxe.ds.StringMap.__interfaces__ = [haxe.IMap];
 haxe.ds.StringMap.prototype = {
 	set: function(key,value) {
-		this.h["$" + key] = value;
+		if(__map_reserved[key] != null) this.setReserved(key,value); else this.h[key] = value;
 	}
 	,get: function(key) {
-		return this.h["$" + key];
+		if(__map_reserved[key] != null) return this.getReserved(key);
+		return this.h[key];
+	}
+	,setReserved: function(key,value) {
+		if(this.rh == null) this.rh = { };
+		this.rh["$" + key] = value;
+	}
+	,getReserved: function(key) {
+		if(this.rh == null) return null; else return this.rh["$" + key];
 	}
 	,keys: function() {
-		var a = [];
+		var _this = this.arrayKeys();
+		return HxOverrides.iter(_this);
+	}
+	,arrayKeys: function() {
+		var out = [];
 		for( var key in this.h ) {
-		if(this.h.hasOwnProperty(key)) a.push(key.substr(1));
+		if(this.h.hasOwnProperty(key)) out.push(key);
 		}
-		return HxOverrides.iter(a);
+		if(this.rh != null) {
+			for( var key in this.rh ) {
+			if(key.charCodeAt(0) == 36) out.push(key.substr(1));
+			}
+		}
+		return out;
 	}
 };
 function $iterator(o) { if( o instanceof Array ) return function() { return HxOverrides.iter(o); }; return typeof(o.iterator) == 'function' ? $bind(o,o.iterator) : o.iterator; }
@@ -346,5 +362,6 @@ function $bind(o,m) { if( m == null ) return null; if( m.__id__ == null ) m.__id
 var q = window.jQuery;
 var js = js || {}
 js.JQuery = q;
+var __map_reserved = {}
 Main.main();
-})();
+})(typeof console != "undefined" ? console : {log:function(){}});

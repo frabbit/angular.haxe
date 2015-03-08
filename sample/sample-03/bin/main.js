@@ -1,5 +1,4 @@
-(function () { "use strict";
-var console = (1,eval)('this').console || {log:function(){}};
+(function (console) { "use strict";
 var Main = function() { };
 Main.main = function() {
 	var appController = function(t) {
@@ -24,4 +23,4 @@ var q = window.jQuery;
 var js = js || {}
 js.JQuery = q;
 Main.main();
-})();
+})(typeof console != "undefined" ? console : {log:function(){}});

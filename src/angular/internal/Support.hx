@@ -22,28 +22,10 @@ class Support {
 		}
 	}
 
-	public static function getNamedArgs (f:Expr, t:Type)
-	{
-		return switch (t) {
-			case TFun(args, ret):
-				var args = [for (a in args) switch a.t {
-					case TType(td,[TInst(_.get() => { kind : KExpr({ expr : EConst(CString(n))})} ,_),_]):
-						{ arg : a.name, named : n };
-					case _ :
-						null;
-				}];
-				[for (a in args) if (a != null) a.arg => a];
-
-
-			case _ : new Map();
-		}
-	}
-
-	public static function convertArgsToParams (args:Array<{ name : String, opt : Bool, t : Type }>, named, cpos)
+	public static function convertArgsToParams (args:Array<{ name : String, opt : Bool, t : Type }>, cpos)
 	{
 		return [for (a in args) {
 			var name = Support.getIdForType(a.t);
-			var name = if (named.exists(a.name)) named.get(a.name).named else name;
 			Context.makeExpr(name, cpos);
 		}];
 	}
@@ -55,11 +37,9 @@ class Support {
 
 		var t = Context.typeof(f);
 
-		var named = getNamedArgs(f, t);
-
 		var params = switch (t) {
 			case TFun(args, _):
-				var params = convertArgsToParams(args, named, cpos);
+				var params = convertArgsToParams(args, cpos);
 				params;
 			default:
 				Context.error("f must be a function returning a type", cpos);
@@ -78,8 +58,14 @@ class Support {
 
 	public static function getIdForType<T>(t:Type):String
 	{
+		function paramsStr(params:Array<Type>) {
+			return switch (params) {
+				case []: "";
+				case a : "<" + [for (p in params) TypeTools.toString(p)].join(",") + ">";
+			}
+		}
 
-		function def (bt:BaseType)
+		function def (bt:BaseType, params)
 		{
 			var meta = bt.meta.get();
 			var filter = meta.filter(function (e) return e.name == ":injectionName" && e.params.length == 1);
@@ -90,19 +76,21 @@ class Support {
 				}
 			} else {
 				var d = bt;
-				fullQualified(d.pack, d.module, d.name);
+				fullQualified(d.pack, d.module, d.name) + paramsStr(params);
 			}
 		}
 
+
+
 		return switch (t) {
 			case TInst(tt, p):
-				def(tt.get());
+				def(tt.get(), p);
 			case TType(tt, p):
-				def(tt.get());
-			case TEnum(et,_):
-				def(et.get());
-			case TAbstract(at,_):
-				def(at.get());
+				def(tt.get(), p);
+			case TEnum(et,p):
+				def(et.get(), p);
+			case TAbstract(at,p):
+				def(at.get(), p);
 			case _ : throw "not supported type " + TypeTools.toString(t);
 		}
 	}

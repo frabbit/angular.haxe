@@ -1,5 +1,4 @@
-(function () { "use strict";
-var console = (1,eval)('this').console || {log:function(){}};
+(function (console) { "use strict";
 function $extend(from, fields) {
 	function Inherit() {} Inherit.prototype = from; var proto = new Inherit();
 	for (var name in fields) proto[name] = fields[name];
@@ -40,7 +39,7 @@ var FooProvider2 = function() {
 FooProvider2.__name__ = true;
 FooProvider2.prototype = {
 	get: function(t) {
-		haxe.Log.trace("get a foo",{ fileName : "Main.hx", lineNumber : 56, className : "FooProvider2", methodName : "get"});
+		haxe.Log.trace("get a foo",{ fileName : "Main.hx", lineNumber : 55, className : "FooProvider2", methodName : "get"});
 		return new Foo(this.val);
 	}
 };
@@ -58,7 +57,6 @@ Main.main = function() {
 	m.factory("MyModel",[function() {
 		return new MyModel();
 	}]);
-	m.factory("MyModel",["MyOtherModel",MyModel.mk]);
 	m.factory("MyOtherModel",[function() {
 		return new MyOtherModel();
 	}]);
@@ -69,70 +67,53 @@ Main.main = function() {
 		return "hello";
 	}]);
 	m.run(["Whoot",function(w) {
-		haxe.Log.trace("the whoot:" + w,{ fileName : "Main.hx", lineNumber : 86, className : "Main", methodName : "main"});
+		haxe.Log.trace("the whoot:" + w,{ fileName : "Main.hx", lineNumber : 85, className : "Main", methodName : "main"});
 	}]);
 	m.run(["String",function(w1) {
-		haxe.Log.trace("the String:" + w1,{ fileName : "Main.hx", lineNumber : 89, className : "Main", methodName : "main"});
+		haxe.Log.trace("the String:" + w1,{ fileName : "Main.hx", lineNumber : 88, className : "Main", methodName : "main"});
 	}]);
 	m.filter("lower",["Whoot",function(w2) {
-		haxe.Log.trace(w2,{ fileName : "Main.hx", lineNumber : 93, className : "Main", methodName : "main"});
+		haxe.Log.trace(w2,{ fileName : "Main.hx", lineNumber : 92, className : "Main", methodName : "main"});
 		return function(x1) {
 			return x1.toLowerCase();
 		};
 	}]);
-	m.provider("myFoo",["$logProvider",function(argWrapper0) {
-		var res;
-		haxe.Log.trace(argWrapper0,{ fileName : "Main.hx", lineNumber : 100, className : "Main", methodName : "main"});
-		haxe.Log.trace("provider called",{ fileName : "Main.hx", lineNumber : 101, className : "Main", methodName : "main"});
-		res = new FooProvider2();
-		if(!Object.prototype.hasOwnProperty.call(res,"$get")) res.$get = ["$timeout",function(arg0) {
-			return res.get(arg0);
-		}];
-		return res;
-	}]);
-	m.config(["myFooProvider",function(f) {
-		haxe.Log.trace("provider config called",{ fileName : "Main.hx", lineNumber : 106, className : "Main", methodName : "main"});
-		f.val = 10;
-	}]);
 	m.config(["$logProvider",function(l) {
-		haxe.Log.trace(l,{ fileName : "Main.hx", lineNumber : 111, className : "Main", methodName : "main"});
+		haxe.Log.trace(l,{ fileName : "Main.hx", lineNumber : 102, className : "Main", methodName : "main"});
 		l.debugEnabled(true);
 	}]);
-	m.controller("MyController",["$scope","foo",function(s1,m1) {
-		haxe.Log.trace("init controller",{ fileName : "Main.hx", lineNumber : 117, className : "Main", methodName : "main"});
-		haxe.Log.trace("scope phase:" + s1.$$phase,{ fileName : "Main.hx", lineNumber : 118, className : "Main", methodName : "main"});
-		haxe.Log.trace(m1,{ fileName : "Main.hx", lineNumber : 119, className : "Main", methodName : "main"});
+	m.controller("MyController",["$scope","MyModel",function(s1,m1) {
+		haxe.Log.trace("init controller",{ fileName : "Main.hx", lineNumber : 108, className : "Main", methodName : "main"});
+		haxe.Log.trace("scope phase:" + s1.$$phase,{ fileName : "Main.hx", lineNumber : 109, className : "Main", methodName : "main"});
+		haxe.Log.trace(m1,{ fileName : "Main.hx", lineNumber : 110, className : "Main", methodName : "main"});
 	}]);
 	m.run([function() {
-		haxe.Log.trace("wtf",{ fileName : "Main.hx", lineNumber : 123, className : "Main", methodName : "main"});
+		haxe.Log.trace("wtf",{ fileName : "Main.hx", lineNumber : 114, className : "Main", methodName : "main"});
 	}]);
 	m.run(["MyModel","$rootScope","$injector",function(m2,r1,inj) {
-		haxe.Log.trace(m2,{ fileName : "Main.hx", lineNumber : 126, className : "Main", methodName : "main"});
-		haxe.Log.trace(r1.$root.$$phase,{ fileName : "Main.hx", lineNumber : 127, className : "Main", methodName : "main"});
+		haxe.Log.trace(m2,{ fileName : "Main.hx", lineNumber : 117, className : "Main", methodName : "main"});
+		haxe.Log.trace(r1.$root.$$phase,{ fileName : "Main.hx", lineNumber : 118, className : "Main", methodName : "main"});
 		var t1 = inj.get("$timeout");
 		t1(function() {
-			haxe.Log.trace("hello11",{ fileName : "Main.hx", lineNumber : 130, className : "Main", methodName : "main"});
+			haxe.Log.trace("hello11",{ fileName : "Main.hx", lineNumber : 121, className : "Main", methodName : "main"});
 		},1);
 	}]);
 	m.run(["$rootElement",function(r2) {
-		haxe.Log.trace(r2.injector(),{ fileName : "Main.hx", lineNumber : 134, className : "Main", methodName : "main"});
+		haxe.Log.trace(r2.injector(),{ fileName : "Main.hx", lineNumber : 125, className : "Main", methodName : "main"});
 	}]);
 	var directive = function(r) {
-		haxe.Log.trace(r,{ fileName : "Main.hx", lineNumber : 138, className : "Main", methodName : "main"});
+		haxe.Log.trace(r,{ fileName : "Main.hx", lineNumber : 129, className : "Main", methodName : "main"});
 		return new angular.support.DirectiveBuilder().templateConst("<div></div>").controllerDynamic(["$scope","$timeout",function(s,t) {
 			var x = t(function() {
-				haxe.Log.trace("timer call",{ fileName : "Main.hx", lineNumber : 142, className : "Main", methodName : "main"});
+				haxe.Log.trace("timer call",{ fileName : "Main.hx", lineNumber : 133, className : "Main", methodName : "main"});
 			},10);
 			t.cancel(x);
 		}]).build();
 	};
 	m.directive("myDirective",["$browser",directive]);
-	m.run(["myFoo",function(x2) {
-		haxe.Log.trace(x2,{ fileName : "Main.hx", lineNumber : 152, className : "Main", methodName : "main"});
-	}]);
-	haxe.Log.trace(window.angular.version,{ fileName : "Main.hx", lineNumber : 155, className : "Main", methodName : "main"});
-	haxe.Log.trace("do bootstrap",{ fileName : "Main.hx", lineNumber : 157, className : "Main", methodName : "main"});
-	window.angular.bootstrap(new js.JQuery("body")[0],["myModule"]);
+	haxe.Log.trace(window.angular.version,{ fileName : "Main.hx", lineNumber : 144, className : "Main", methodName : "main"});
+	haxe.Log.trace("do bootstrap",{ fileName : "Main.hx", lineNumber : 146, className : "Main", methodName : "main"});
+	window.angular.bootstrap(js.JQuery("body")[0],["myModule"]);
 };
 Math.__name__ = true;
 var Reflect = function() { };
@@ -405,17 +386,34 @@ haxe.ds.StringMap.__name__ = true;
 haxe.ds.StringMap.__interfaces__ = [haxe.IMap];
 haxe.ds.StringMap.prototype = {
 	set: function(key,value) {
-		this.h["$" + key] = value;
+		if(__map_reserved[key] != null) this.setReserved(key,value); else this.h[key] = value;
 	}
 	,get: function(key) {
-		return this.h["$" + key];
+		if(__map_reserved[key] != null) return this.getReserved(key);
+		return this.h[key];
+	}
+	,setReserved: function(key,value) {
+		if(this.rh == null) this.rh = { };
+		this.rh["$" + key] = value;
+	}
+	,getReserved: function(key) {
+		if(this.rh == null) return null; else return this.rh["$" + key];
 	}
 	,keys: function() {
-		var a = [];
+		var _this = this.arrayKeys();
+		return HxOverrides.iter(_this);
+	}
+	,arrayKeys: function() {
+		var out = [];
 		for( var key in this.h ) {
-		if(this.h.hasOwnProperty(key)) a.push(key.substr(1));
+		if(this.h.hasOwnProperty(key)) out.push(key);
 		}
-		return HxOverrides.iter(a);
+		if(this.rh != null) {
+			for( var key in this.rh ) {
+			if(key.charCodeAt(0) == 36) out.push(key.substr(1));
+			}
+		}
+		return out;
 	}
 };
 js.Boot = function() { };
@@ -514,5 +512,6 @@ Array.__name__ = true;
 var q = window.jQuery;
 var js = js || {}
 js.JQuery = q;
+var __map_reserved = {}
 Main.main();
-})();
+})(typeof console != "undefined" ? console : {log:function(){}});

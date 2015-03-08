@@ -13,17 +13,16 @@ import haxe.macro.ExprTools;
 
 class ModuleImpl {
 
-	public static function provider (ethis:Expr, f:Expr, ?name:String):Expr
+	public static function provider (ethis:Expr, f:Expr):Expr
 	{
 		var cpos = Context.currentPos();
 
 		var t = Context.typeof(f);
 
-		var named = Support.getNamedArgs(f, t);
 
 		var v = switch (Context.follow(t)) {
 			case TFun(args, ret):
-				var params = Support.convertArgsToParams(args, named, cpos);
+				var params = Support.convertArgsToParams(args, cpos);
 
 				var getParams = switch (ret) {
 					case TInst(_.get() => cl, _):
@@ -38,35 +37,17 @@ class ModuleImpl {
 								case TFun(args, ret):
 
 
-									var paramsGet = Support.convertArgsToParams(args, named, cpos);
+									var paramsGet = Support.convertArgsToParams(args, cpos);
 									var providerName = Support.fullQualified(cl.pack, cl.module, cl.name);
 									var instanceName = Support.getIdForType(ret);
 
-									if (name == null && providerName != instanceName + "Provider") {
+									if (providerName != instanceName + "Provider") {
 										Context.error('$providerName should be ${instanceName + "Provider"}\nThe name of the provider class should be the instance name + the suffix "Provider"', cl.pos);
 									}
 									{ params : paramsGet, name : Support.getIdForType(ret) }
 								case _ : Context.error("invalid field type for get", cpos);
 							}
 						}
-					case TAnonymous(a) if (name == null): Context.error("anonymous providers are only supported if name is defined", cpos);
-					case TAnonymous(a):
-
-						var fields = a.get().fields;
-						var fields = fields.filter(function (c) return c.name == "get");
-						if (fields.length == 0) {
-							Context.error("the return type of f has no field get which is needed for a provider", cpos);
-						} else {
-							var f = fields[0];
-
-							switch (f.type) {
-								case TFun(args, ret):
-									var paramsGet = Support.convertArgsToParams(args, named, cpos);
-									{ params : paramsGet, name : Support.getIdForType(ret) }
-								case _ : Context.error("invalid field type for get", cpos);
-							}
-						}
-
 					case _ : Context.error("not supported provider type", cpos);
 				}
 				{ params : params, paramsGet : getParams.params, name : getParams.name }
@@ -114,13 +95,12 @@ class ModuleImpl {
 		}
 		// inject the $get name into the type
 		var args = macro ( [$a{v.params.concat([wrapperCall])}] : Array<Dynamic>);
-		var name = if (name != null) name else v.name;
-		var res = macro $ethis.providerDynamic($v{name}, $args);
+		var res = macro $ethis.providerDynamic($v{v.name}, $args);
 		return res;
 
 	}
 
-	public static function factory (ethis:Expr, f:ExprOf<Function>, ?as:Expr, ?name:String):Expr
+	public static function factory (ethis:Expr, f:ExprOf<Function>):Expr
 	{
 
 		var cpos = Context.currentPos();
@@ -137,14 +117,12 @@ class ModuleImpl {
 
 		var t = Context.typeof(f);
 
-		var named = Support.getNamedArgs(f, t);
-
 		var v = switch (t) {
 			case TFun(args, Support.isVoid(_) => true):
 				Context.error("the return type of f should be a valid type, not Void", cpos);
 			case TFun(args, ret):
 
-				var injectArgs = Support.convertArgsToParams(args, named, cpos);
+				var injectArgs = Support.convertArgsToParams(args, cpos);
 
 				var name = switch (castType) {
 					case Some(x):
@@ -153,9 +131,7 @@ class ModuleImpl {
 							var t = Context.typeof(macro ( (cast null : $ct) : $x));
 							Support.getIdForType(t);
 						} catch (x:Error) {
-							//throw new Error(x, origExpr.pos);
 							haxe.macro.Context.error(x.message, origExpr.pos);
-
 						}
 					case None: Support.getIdForType(ret);
 				}
@@ -168,8 +144,7 @@ class ModuleImpl {
 
 		var args = v.injectArgs.concat([f]);
 
-		var name = if (name != null) name else v.name;
-		return macro $ethis.factoryDynamic($v{name}, ( [$a{args}] : Array<Dynamic>) );
+		return macro $ethis.factoryDynamic($v{v.name}, ( [$a{args}] : Array<Dynamic>) );
 	}
 
 	public static function directive (ethis:Expr, name:ExprOf<String>, f:ExprOf<Function>):Expr
@@ -178,13 +153,11 @@ class ModuleImpl {
 
 		var t = Context.typeof(f);
 
-		var named = Support.getNamedArgs(f, t);
-
 		var injectArgs = switch (t) {
 			case TFun(args, Support.isVoid(_) => true):
 				Context.error("the return type of f should be a valid type, not Void", cpos);
 			case TFun(args, ret):
-				Support.convertArgsToParams(args, named, cpos);
+				Support.convertArgsToParams(args, cpos);
 			default:
 				Context.error("f must be a function returning a type", cpos);
 		}
@@ -200,11 +173,9 @@ class ModuleImpl {
 
 		var t = Context.typeof(f);
 
-		var named = Support.getNamedArgs(f, t);
-
 		var injectArgs = switch (t) {
 			case TFun(args, TFun(_,Support.isVoid(_) => false)):
-				Support.convertArgsToParams(args, named, cpos);
+				Support.convertArgsToParams(args, cpos);
 			case TFun(args, ret):
 				Context.error("the return type of f should be a function which should not return Void", cpos);
 			default:
