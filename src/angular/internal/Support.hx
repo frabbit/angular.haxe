@@ -69,7 +69,6 @@ class Support {
 					case _ : Context.error("Unsupported :injectionName format", filter[0].pos);
 				}
 			} else {
-				var d = bt;
 				TypeTools.toString(t);
 			}
 		}
