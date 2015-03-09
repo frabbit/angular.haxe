@@ -1,7 +1,7 @@
 angular.haxe
 ============
 
-angular.haxe is a toolset for using angular.js in haxe applications. It tries to combine angular.js with the type safety of haxe as much as possible. The angular API is fully typed and haxe macros extend the api to support dependency injection based on types instead of unsafe strings.
+angular.haxe is a toolset for integration of angular.js in haxe applications. It tries to combine angular.js with the type safety of haxe as much as possible. The angular API is fully typed and haxe macros extend the api to support dependency injection based on types instead of unsafe strings.
 
 It's currently incomplete, feel free to add pull requests or become a contributor.
 
