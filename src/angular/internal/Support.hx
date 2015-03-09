@@ -58,14 +58,8 @@ class Support {
 
 	public static function getIdForType<T>(t:Type):String
 	{
-		function paramsStr(params:Array<Type>) {
-			return switch (params) {
-				case []: "";
-				case a : "<" + [for (p in params) TypeTools.toString(p)].join(",") + ">";
-			}
-		}
 
-		function def (bt:BaseType, params)
+		function def (bt:BaseType, t:Type, params)
 		{
 			var meta = bt.meta.get();
 			var filter = meta.filter(function (e) return e.name == ":injectionName" && e.params.length == 1);
@@ -76,21 +70,23 @@ class Support {
 				}
 			} else {
 				var d = bt;
-				fullQualified(d.pack, d.module, d.name) + paramsStr(params);
+				TypeTools.toString(t);
 			}
 		}
 
-
-
 		return switch (t) {
 			case TInst(tt, p):
-				def(tt.get(), p);
+				def(tt.get(), t, p);
 			case TType(tt, p):
-				def(tt.get(), p);
+				def(tt.get(), t, p);
+			case TFun(_,_), TAnonymous(_):
+				TypeTools.toString(t);
+			case TLazy(f):
+				getIdForType(f());
 			case TEnum(et,p):
-				def(et.get(), p);
+				def(et.get(), t, p);
 			case TAbstract(at,p):
-				def(at.get(), p);
+				def(at.get(), t, p);
 			case _ : throw "not supported type " + TypeTools.toString(t);
 		}
 	}
