@@ -3,9 +3,9 @@
   "url": "https://github.com/frabbit/angular.haxe",
   "license": "MIT",
   "classPath": "src",
-  "tags": ["angular", "angular.js", "externs"],
-  "description": "Toolset for using angular.js in haxe applications",
-  "releasenote": "initial release",
-  "version": "0.0.4",
+  "tags": ["angular", "angular.js", "externs", "js"],
+  "description": "Toolset for integration of angular.js in haxe js applications",
+  "releasenote": "more complete angular api, bugfixing, removed optional name parameter from dependency injection related functions of Module, dependency injection improvement: type parameters are now part of the type",
+  "version": "0.0.5",
   "contributors": ["frabbit"]
 }
