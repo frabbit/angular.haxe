@@ -5,7 +5,7 @@
   "classPath": "src",
   "tags": ["angular", "angular.js", "externs", "js"],
   "description": "Toolset for integration of angular.js in haxe js applications",
-  "releasenote": "more complete angular api, bugfixing, removed optional name parameter from dependency injection related functions of Module, dependency injection improvement: type parameters are now part of the type",
-  "version": "0.0.5",
+  "releasenote": "support anonymous structures and function types for injection",
+  "version": "0.0.6",
   "contributors": ["frabbit"]
 }
