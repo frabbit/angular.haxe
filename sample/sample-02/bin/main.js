@@ -54,7 +54,7 @@ Main.main = function() {
 		};
 		scope.clear = $bind(news,news.clear);
 	};
-	var newsDirective = ($_=new angular.support.DirectiveBuilder().templateConst("<div>\n\t<h2>Lates News</h2>\n\t<ul>\n\t\t<li ng-repeat=\"e in entries\" ng-click=\"clickEntry(e)\">\n\t\t\t<p>text: {{e.text}}</p>\n\t\t\t<p>image: {{e.img}}</p>\n\t\t</li>\n\t\t<div>\n\t\t\t<input type=\"text\" ng-model=\"newEntry.text\">\n\t\t\t<input type=\"text\" ng-model=\"newEntry.img\">\n\t\t\t<button ng-click=\"addNews()\">add</button>\n\t\t</div>\n\t\t<button ng-click=\"clear()\">clear</button>\n\t</ul>\n</div>").controllerDynamic(["$scope","News",newsController]),$bind($_,$_.build));
+	var newsDirective = ($_=new angular_support_DirectiveBuilder().templateConst("<div>\n\t<h2>Lates News</h2>\n\t<ul>\n\t\t<li ng-repeat=\"e in entries\" ng-click=\"clickEntry(e)\">\n\t\t\t<p>text: {{e.text}}</p>\n\t\t\t<p>image: {{e.img}}</p>\n\t\t</li>\n\t\t<div>\n\t\t\t<input type=\"text\" ng-model=\"newEntry.text\">\n\t\t\t<input type=\"text\" ng-model=\"newEntry.img\">\n\t\t\t<button ng-click=\"addNews()\">add</button>\n\t\t</div>\n\t\t<button ng-click=\"clear()\">clear</button>\n\t</ul>\n</div>").controllerDynamic(["$scope","News",newsController]),$bind($_,$_.build));
 	var appController = function(scope1,config) {
 		console.log("appController initialized");
 		scope1.data = { appName : config.appName};
@@ -75,21 +75,18 @@ var Reflect = function() { };
 Reflect.setField = function(o,field,value) {
 	o[field] = value;
 };
-var angular = {};
-angular._Angular = {};
-angular._Angular.TranscludeFn_Impl_ = {};
-angular._Angular.TranscludeFn_Impl_.call = function(this1,scope,link) {
+var angular__$Angular_TranscludeFn_$Impl_$ = {};
+angular__$Angular_TranscludeFn_$Impl_$.call = function(this1,scope,link) {
 	this1(scope,link);
 };
-angular._Angular.TranscludeFn_Impl_.withoutScope = function(this1,link) {
+angular__$Angular_TranscludeFn_$Impl_$.withoutScope = function(this1,link) {
 	this1(link);
 };
-angular.internal = {};
-angular.internal.ModuleMacros = function() { };
-angular.internal.DirectiveBuilderMacros = function() { };
-angular.internal.InjectorMacros = function() { };
-angular.internal.Options = function() { };
-angular.internal.Options.each = function(o,f) {
+var angular_internal_ModuleMacros = function() { };
+var angular_internal_DirectiveBuilderMacros = function() { };
+var angular_internal_InjectorMacros = function() { };
+var angular_internal_Options = function() { };
+angular_internal_Options.each = function(o,f) {
 	switch(o[1]) {
 	case 0:
 		var x = o[2];
@@ -99,35 +96,33 @@ angular.internal.Options.each = function(o,f) {
 		break;
 	}
 };
-angular.internal.Options.map = function(o,f) {
+angular_internal_Options.map = function(o,f) {
 	switch(o[1]) {
 	case 0:
 		var x = o[2];
-		return haxe.ds.Option.Some(f(x));
+		return haxe_ds_Option.Some(f(x));
 	case 1:
-		return haxe.ds.Option.None;
+		return haxe_ds_Option.None;
 	}
 };
-angular.internal.Options.orElse = function(o,f) {
+angular_internal_Options.orElse = function(o,f) {
 	switch(o[1]) {
 	case 0:
 		var x = o[2];
-		return haxe.ds.Option.Some(x);
+		return haxe_ds_Option.Some(x);
 	case 1:
 		return f();
 	}
 };
-var js = {};
-angular.support = {};
-angular.support.LinkOp = { __constructs__ : ["At","Eq","And"] };
-angular.support.LinkOp.At = ["At",0];
-angular.support.LinkOp.At.__enum__ = angular.support.LinkOp;
-angular.support.LinkOp.Eq = ["Eq",1];
-angular.support.LinkOp.Eq.__enum__ = angular.support.LinkOp;
-angular.support.LinkOp.And = ["And",2];
-angular.support.LinkOp.And.__enum__ = angular.support.LinkOp;
-angular.support.LinkOps = function() { };
-angular.support.LinkOps.toString = function(op) {
+var angular_support_LinkOp = { __constructs__ : ["At","Eq","And"] };
+angular_support_LinkOp.At = ["At",0];
+angular_support_LinkOp.At.__enum__ = angular_support_LinkOp;
+angular_support_LinkOp.Eq = ["Eq",1];
+angular_support_LinkOp.Eq.__enum__ = angular_support_LinkOp;
+angular_support_LinkOp.And = ["And",2];
+angular_support_LinkOp.And.__enum__ = angular_support_LinkOp;
+var angular_support_LinkOps = function() { };
+angular_support_LinkOps.toString = function(op) {
 	switch(op[1]) {
 	case 0:
 		return "@";
@@ -137,31 +132,31 @@ angular.support.LinkOps.toString = function(op) {
 		return "&";
 	}
 };
-angular.support.DirectiveBuilder = function() {
-	this._replace = haxe.ds.Option.None;
-	this._restrict = haxe.ds.Option.None;
-	this._scope = new haxe.ds.StringMap();
-	this._template = haxe.ds.Option.None;
-	this._controller = haxe.ds.Option.None;
-	this._link = haxe.ds.Option.None;
-	this._compile = haxe.ds.Option.None;
-	this._transclude = haxe.ds.Option.None;
-	this._priority = haxe.ds.Option.None;
-	this._templateUrl = haxe.ds.Option.None;
+var angular_support_DirectiveBuilder = function() {
+	this._replace = haxe_ds_Option.None;
+	this._restrict = haxe_ds_Option.None;
+	this._scope = new haxe_ds_StringMap();
+	this._template = haxe_ds_Option.None;
+	this._controller = haxe_ds_Option.None;
+	this._link = haxe_ds_Option.None;
+	this._compile = haxe_ds_Option.None;
+	this._transclude = haxe_ds_Option.None;
+	this._priority = haxe_ds_Option.None;
+	this._templateUrl = haxe_ds_Option.None;
 	this._isolatedScope = true;
 	this._childScope = true;
 };
-angular.support.DirectiveBuilder.mk = function() {
-	return new angular.support.DirectiveBuilder();
+angular_support_DirectiveBuilder.mk = function() {
+	return new angular_support_DirectiveBuilder();
 };
-angular.support.DirectiveBuilder.__super__ = angular.internal.DirectiveBuilderMacros;
-angular.support.DirectiveBuilder.prototype = $extend(angular.internal.DirectiveBuilderMacros.prototype,{
+angular_support_DirectiveBuilder.__super__ = angular_internal_DirectiveBuilderMacros;
+angular_support_DirectiveBuilder.prototype = $extend(angular_internal_DirectiveBuilderMacros.prototype,{
 	transclude: function(b) {
-		this._transclude = haxe.ds.Option.Some(b);
+		this._transclude = haxe_ds_Option.Some(b);
 		return this;
 	}
 	,priority: function(i) {
-		this._priority = haxe.ds.Option.Some(i);
+		this._priority = haxe_ds_Option.Some(i);
 		return this;
 	}
 	,isolatedScope: function() {
@@ -175,50 +170,50 @@ angular.support.DirectiveBuilder.prototype = $extend(angular.internal.DirectiveB
 		return this;
 	}
 	,restrictToElement: function() {
-		this._restrict = angular.internal.Options.orElse(angular.internal.Options.map(this._restrict,function(x) {
+		this._restrict = angular_internal_Options.orElse(angular_internal_Options.map(this._restrict,function(x) {
 			return x + "E";
 		}),function() {
-			return haxe.ds.Option.Some("E");
+			return haxe_ds_Option.Some("E");
 		});
 		return this;
 	}
 	,restrictToAttribute: function() {
-		this._restrict = angular.internal.Options.orElse(angular.internal.Options.map(this._restrict,function(x) {
+		this._restrict = angular_internal_Options.orElse(angular_internal_Options.map(this._restrict,function(x) {
 			return x + "A";
 		}),function() {
-			return haxe.ds.Option.Some("A");
+			return haxe_ds_Option.Some("A");
 		});
 		return this;
 	}
 	,restrictAll: function() {
-		this._restrict = haxe.ds.Option.Some("AECM");
+		this._restrict = haxe_ds_Option.Some("AECM");
 		return this;
 	}
 	,restrictClass: function() {
-		this._restrict = angular.internal.Options.orElse(angular.internal.Options.map(this._restrict,function(x) {
+		this._restrict = angular_internal_Options.orElse(angular_internal_Options.map(this._restrict,function(x) {
 			return x + "C";
 		}),function() {
-			return haxe.ds.Option.Some("C");
+			return haxe_ds_Option.Some("C");
 		});
 		return this;
 	}
 	,restrictComment: function() {
-		this._restrict = angular.internal.Options.orElse(angular.internal.Options.map(this._restrict,function(x) {
+		this._restrict = angular_internal_Options.orElse(angular_internal_Options.map(this._restrict,function(x) {
 			return x + "M";
 		}),function() {
-			return haxe.ds.Option.Some("M");
+			return haxe_ds_Option.Some("M");
 		});
 		return this;
 	}
 	,build: function() {
 		var r = { };
 		var set = Reflect.setField;
-		angular.internal.Options.each(this._replace,(function(f,o,a1) {
+		angular_internal_Options.each(this._replace,(function(f,o,a1) {
 			return function(a2) {
 				f(o,a1,a2);
 			};
 		})(set,r,"replace"));
-		angular.internal.Options.each(this._restrict,(function(f1,o1,a11) {
+		angular_internal_Options.each(this._restrict,(function(f1,o1,a11) {
 			return function(a21) {
 				f1(o1,a11,a21);
 			};
@@ -232,37 +227,37 @@ angular.support.DirectiveBuilder.prototype = $extend(angular.internal.DirectiveB
 			}
 			set(r,"scope",scopeObj);
 		} else if(this._isolatedScope) set(r,"scope",{ }); else if(this._childScope) set(r,"scope",true);
-		angular.internal.Options.each(this._template,(function(f2,o2,a12) {
+		angular_internal_Options.each(this._template,(function(f2,o2,a12) {
 			return function(a22) {
 				f2(o2,a12,a22);
 			};
 		})(set,r,"template"));
-		angular.internal.Options.each(this._templateUrl,(function(f3,o3,a13) {
+		angular_internal_Options.each(this._templateUrl,(function(f3,o3,a13) {
 			return function(a23) {
 				f3(o3,a13,a23);
 			};
 		})(set,r,"templateUrl"));
-		angular.internal.Options.each(this._controller,(function(f4,o4,a14) {
+		angular_internal_Options.each(this._controller,(function(f4,o4,a14) {
 			return function(a24) {
 				f4(o4,a14,a24);
 			};
 		})(set,r,"controller"));
-		angular.internal.Options.each(this._transclude,(function(f5,o5,a15) {
+		angular_internal_Options.each(this._transclude,(function(f5,o5,a15) {
 			return function(a25) {
 				f5(o5,a15,a25);
 			};
 		})(set,r,"transclude"));
-		angular.internal.Options.each(this._link,(function(f6,o6,a16) {
+		angular_internal_Options.each(this._link,(function(f6,o6,a16) {
 			return function(a26) {
 				f6(o6,a16,a26);
 			};
 		})(set,r,"link"));
-		angular.internal.Options.each(this._compile,(function(f7,o7,a17) {
+		angular_internal_Options.each(this._compile,(function(f7,o7,a17) {
 			return function(a27) {
 				f7(o7,a17,a27);
 			};
 		})(set,r,"compile"));
-		angular.internal.Options.each(this._priority,(function(f8,o8,a18) {
+		angular_internal_Options.each(this._priority,(function(f8,o8,a18) {
 			return function(a28) {
 				f8(o8,a18,a28);
 			};
@@ -270,61 +265,59 @@ angular.support.DirectiveBuilder.prototype = $extend(angular.internal.DirectiveB
 		return r;
 	}
 	,replace: function(v) {
-		this._replace = haxe.ds.Option.Some(v);
+		this._replace = haxe_ds_Option.Some(v);
 		return this;
 	}
 	,scope: function(field,op,val) {
 		if(val == null) val = "";
-		this._scope.set(field,angular.support.LinkOps.toString(op) + val);
+		this._scope.set(field,angular_support_LinkOps.toString(op) + val);
 		return this;
 	}
 	,templateFunc: function(x) {
-		this._template = haxe.ds.Option.Some(x);
+		this._template = haxe_ds_Option.Some(x);
 		return this;
 	}
 	,templateConst: function(x) {
-		this._template = haxe.ds.Option.Some(function() {
+		this._template = haxe_ds_Option.Some(function() {
 			return x;
 		});
 		return this;
 	}
 	,templateUrl: function(x) {
-		this._templateUrl = haxe.ds.Option.Some(x);
+		this._templateUrl = haxe_ds_Option.Some(x);
 		return this;
 	}
 	,compile: function(f) {
-		this._compile = haxe.ds.Option.Some(f);
+		this._compile = haxe_ds_Option.Some(f);
 		return this;
 	}
 	,compilePrePost: function(f) {
-		this._compile = haxe.ds.Option.Some(f);
+		this._compile = haxe_ds_Option.Some(f);
 		return this;
 	}
 	,link: function(f) {
-		this._link = haxe.ds.Option.Some(f);
+		this._link = haxe_ds_Option.Some(f);
 		return this;
 	}
 	,linkPreAndPost: function(pre,post) {
-		this._link = haxe.ds.Option.Some({ pre : pre, post : post});
+		this._link = haxe_ds_Option.Some({ pre : pre, post : post});
 		return this;
 	}
 	,controllerDynamic: function(arr) {
-		this._controller = haxe.ds.Option.Some(arr);
+		this._controller = haxe_ds_Option.Some(arr);
 		return this;
 	}
 });
-var haxe = {};
-haxe.IMap = function() { };
-haxe.ds = {};
-haxe.ds.Option = { __constructs__ : ["Some","None"] };
-haxe.ds.Option.Some = function(v) { var $x = ["Some",0,v]; $x.__enum__ = haxe.ds.Option; return $x; };
-haxe.ds.Option.None = ["None",1];
-haxe.ds.Option.None.__enum__ = haxe.ds.Option;
-haxe.ds.StringMap = function() {
+var haxe_IMap = function() { };
+var haxe_ds_Option = { __constructs__ : ["Some","None"] };
+haxe_ds_Option.Some = function(v) { var $x = ["Some",0,v]; $x.__enum__ = haxe_ds_Option; return $x; };
+haxe_ds_Option.None = ["None",1];
+haxe_ds_Option.None.__enum__ = haxe_ds_Option;
+var haxe_ds_StringMap = function() {
 	this.h = { };
 };
-haxe.ds.StringMap.__interfaces__ = [haxe.IMap];
-haxe.ds.StringMap.prototype = {
+haxe_ds_StringMap.__interfaces__ = [haxe_IMap];
+haxe_ds_StringMap.prototype = {
 	set: function(key,value) {
 		if(__map_reserved[key] != null) this.setReserved(key,value); else this.h[key] = value;
 	}
