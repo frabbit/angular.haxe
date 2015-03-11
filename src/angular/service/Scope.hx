@@ -4,12 +4,22 @@ import haxe.Constraints;
 
 private typedef UnregisterFn = Void->Void;
 
+typedef ScopeEvent = {
+	targetScope : Scope,
+	currentScope : Scope,
+	name : String,
+	stopPropagation : Void->Void, // ?? not sure
+	preventDefault : Void->Void, // ?? not sure
+	defaultPrevented : Bool
+}
+
 @:injectionName("$scope")
 extern class Scope
 {
-
+	@:overload(function ():Void {}) // ?? not sure
+	@:overload(function (f:Void->Void):Void {})
 	@:overload(function (expr:String):Dynamic {})
-	@:native("$eval") public function eval(f:Function):Dynamic;
+	@:native("$eval") public function eval<T>(f:Scope->T):T;
 
 	@:native("$parent")public var parent:Scope;
 
@@ -19,25 +29,32 @@ extern class Scope
 
 	@:native("$new") public function mkNew(isolate:Bool):Scope;
 
-
+	@:overload(function (e:ScopeEvent->Void):UnregisterFn {})
 	@:native("$on") public function on(name:String, listener:Function):UnregisterFn;
 
 	@:native("$emit") public function emit(name:String, ?data:Dynamic):Void;
 
 	@:native("$broadcast") public function broadcast(name:String, ?data:Dynamic):Void;
 
-	@:native("$watch") public function watch(expr:String, listener:Function, ?objectEquality:Bool = false):UnregisterFn;
-	
-	@:native("$watchGroup") public function watchGroup(expr:Array<String>, listener:Function, ?objectEquality:Bool = false):UnregisterFn;
+	@:native("$watch") public function watch<T>(expr:String, listener:T->T->?Scope->Void, ?objectEquality:Bool = false):UnregisterFn;
 
+	@:native("$watchGroup") public function watchGroup<T>(expr:Array<String>, listener:Array<T>->Array<T>->?Scope->Void):UnregisterFn;
+
+	@:native("$watchCollection") public function watchCollection<T>(expr:String, listener:Array<T>->Array<T>->?Scope->Void):UnregisterFn;
+
+	@:overload(function (f:Scope->Void):Void {})
 	@:overload(function (f:Void->Void):Void {})
-	@:native("$apply") public function apply(?expr:String):Void;
+	@:native("$apply") public function apply(expr:String):Void;
+
+	@:overload(function (f:Scope->Void):Void {})
+	@:overload(function (f:Void->Void):Void {})
+	@:native("$applyAsync") public function applyAsync(expr:String):Void;
 
 	@:native("$root") public var root:Scope;
 
 	@:native("$$phase") public var phase:String;
 
-	public inline function onDestroy(listener:Function):UnregisterFn
+	public inline function onDestroy(listener:Void->Void):UnregisterFn
 	{
 		return on("$destroy", listener);
 	}
