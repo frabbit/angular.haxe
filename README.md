@@ -323,3 +323,12 @@ class Main
 	}
 }
 ```
+
+Technically `.bundle( ( _ : Bundle ) )` this is just a shortcut for the following code. It becomes really useful for larger bundles with a lot of fields.
+
+```haxe
+.factory( function (x:String, y:String) {
+	return { x : y, y : y}
+})
+```
+
