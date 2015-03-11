@@ -15,9 +15,9 @@ class DirectiveBuilderImpl {
 		return macro $ethis.controllerDynamic($args);
 	}
 
-	public static function templateConstFile (ethis:Expr, f:String)
+	public static function templateConstFile (ethis:Expr, f:String, ?suffix = ".html")
 	{
-		return macro $ethis.templateConst(${angular.internal.FileMacros.getHtmlRelative(f)});
+		return macro $ethis.templateConst(${angular.internal.FileMacros.getFileRelative(f+suffix)});
 	}
 
 }

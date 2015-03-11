@@ -11,7 +11,12 @@ class FileMacros {
 
 	#if !macro macro #end public static function getHtmlRelative (pathWithoutSuffix:String)
 	{
-		return getContentAsValue(pathWithoutSuffix + ".html", true);
+		return getFileRelative(pathWithoutSuffix + ".html");
+	}
+
+	#if !macro macro #end public static function getFileRelative (fileName:String)
+	{
+		return getContentAsValue(fileName, true);
 	}
 
 	macro public static function getHtml (pathWithoutSuffix:String)

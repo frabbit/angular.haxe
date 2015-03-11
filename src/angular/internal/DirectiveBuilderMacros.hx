@@ -10,9 +10,9 @@ class DirectiveBuilderMacros {
 	{
 		return angular.internal.DirectiveBuilderImpl.controller(ethis, f);
 	}
-	macro public function templateConstFile (ethis:Expr, f:String)
+	macro public function templateConstFile (ethis:Expr, f:String, ?suffix:Null<String> = ".html")
 	{
-		return angular.internal.DirectiveBuilderImpl.templateConstFile(ethis, f);
+		return angular.internal.DirectiveBuilderImpl.templateConstFile(ethis, f, suffix);
 	}
 
 }
