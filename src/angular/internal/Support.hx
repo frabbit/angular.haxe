@@ -22,6 +22,30 @@ class Support {
 		}
 	}
 
+	public static function typeofNormalized (f:Expr) {
+		var t = Context.typeof(f);
+		typeNormalize(t);
+		return t;
+	}
+
+	public static function typeNormalize (t:Type)
+	{
+		TypeTools.iter(t, function f (t1) {
+			switch (t1) {
+				case null:
+				case TFun(args, ret):
+					for (a in args) {
+						a.name = "";
+						typeNormalize(a.t);
+					}
+					typeNormalize(ret);
+				case _: typeNormalize(t1);
+			}
+
+		});
+
+	}
+
 	public static function convertArgsToParams (args:Array<{ name : String, opt : Bool, t : Type }>, cpos)
 	{
 		return [for (a in args) {
@@ -35,7 +59,7 @@ class Support {
 
 		var cpos = Context.currentPos();
 
-		var t = Context.typeof(f);
+		var t = typeofNormalized(f);
 
 		var params = switch (t) {
 			case TFun(args, _):

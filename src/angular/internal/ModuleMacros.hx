@@ -10,6 +10,11 @@ class ModuleMacros {
 		return angular.internal.ModuleImpl.provider(ethis, f);
 	}
 
+	macro public function bundle(ethis:Expr, f:ExprOf<{}>):Expr
+	{
+		return angular.internal.ModuleImpl.bundle(ethis, f);
+	}
+
 	macro public function factory (ethis:Expr, f:ExprOf<Function>):Expr
 	{
 		return angular.internal.ModuleImpl.factory(ethis, f);

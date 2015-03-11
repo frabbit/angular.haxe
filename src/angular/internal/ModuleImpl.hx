@@ -17,7 +17,7 @@ class ModuleImpl {
 	{
 		var cpos = Context.currentPos();
 
-		var t = Context.typeof(f);
+		var t = typeofNormalized(f);
 
 
 		var v = switch (Context.follow(t)) {
@@ -30,7 +30,7 @@ class ModuleImpl {
 						var fields = cl.fields.get();
 						var fields = fields.filter(function (c) return c.name == "get" && c.kind.match(FMethod(_)));
 						if (fields.length == 0) {
-							Context.error("the return type of f has no field get which is needed for a provider", cpos);
+							err("the return type of f has no field get which is needed for a provider", cpos);
 						} else {
 							var f = fields[0];
 							switch (f.type) {
@@ -42,16 +42,16 @@ class ModuleImpl {
 									var instanceName = Support.getIdForType(ret);
 
 									if (providerName != instanceName + "Provider") {
-										Context.error('$providerName should be ${instanceName + "Provider"}\nThe name of the provider class should be the instance name + the suffix "Provider"', cl.pos);
+										err('$providerName should be ${instanceName + "Provider"}\nThe name of the provider class should be the instance name + the suffix "Provider"', cl.pos);
 									}
 									{ params : paramsGet, name : Support.getIdForType(ret) }
-								case _ : Context.error("invalid field type for get", cpos);
+								case _ : err("invalid field type for get", cpos);
 							}
 						}
-					case _ : Context.error("not supported provider type", cpos);
+					case _ : err("not supported provider type", cpos);
 				}
 				{ params : params, paramsGet : getParams.params, name : getParams.name }
-			case _ : Context.error("f must be a function returning a provider with a get function", cpos);
+			case _ : err("f must be a function returning a provider with a get function", cpos);
 
 		}
 
@@ -100,9 +100,49 @@ class ModuleImpl {
 
 	}
 
+	public static function bundle(ethis:Expr, b:ExprOf<{}>):Expr
+	{
+		var r = switch (b.expr)
+		{
+			case EParenthesis( { expr : ECheckType(macro _, ct) }):
+				var expr = macro @:pos(b.pos) ( null : $ct );
+				{ ct: ct, expr : expr };
+			case _ : err("expression must be a CheckType expression like factoryBundle(( _ : MyType ))", b.pos);
+		}
+		var ct = r.ct;
+		var typeExpr = r.expr;
+		var t = typeofNormalized(typeExpr);
+
+		return switch Context.follow(t)
+		{
+			case TAnonymous(a):
+				var afields = a.get().fields;
+
+				var funArgs = [for (f in afields) { name : f.name, type : TypeTools.toComplexType(f.type) }];
+				var objFields = [for (f in afields) { field : f.name, expr : macro @:pos(b.pos) $i{f.name} }];
+
+				var res = { expr : EObjectDecl(objFields), pos : b.pos }
+
+				var f = EFunction(null, {
+					args : funArgs,
+					ret : ct,
+					expr : macro return $res
+				});
+				var fexpr = { expr : f, pos : b.pos };
+				factory(ethis, fexpr);
+			case _ :
+				err("error type of argument is not a structure aliases by a typedef", b.pos);
+		}
+
+	}
+
+	static function err <T>(msg:String, pos):T {
+		return Context.error("the return type of f should be a valid type, not Void", pos);
+		//return throw "assert";
+	}
+
 	public static function factory (ethis:Expr, f:ExprOf<Function>):Expr
 	{
-
 		var cpos = Context.currentPos();
 
 		var origExpr = f;
@@ -115,11 +155,11 @@ class ModuleImpl {
 				None;
 		}
 
-		var t = Context.typeof(f);
+		var t = typeofNormalized(f);
 
 		var v = switch (t) {
 			case TFun(args, Support.isVoid(_) => true):
-				Context.error("the return type of f should be a valid type, not Void", cpos);
+				err("the return type of f should be a valid type, not Void", cpos);
 			case TFun(args, ret):
 
 				var injectArgs = Support.convertArgsToParams(args, cpos);
@@ -131,14 +171,14 @@ class ModuleImpl {
 							var t = Context.typeof(macro ( (cast null : $ct) : $x));
 							Support.getIdForType(t);
 						} catch (x:Error) {
-							haxe.macro.Context.error(x.message, origExpr.pos);
+							err(x.message, origExpr.pos);
 						}
 					case None: Support.getIdForType(ret);
 				}
 
 				{ injectArgs : injectArgs, name : name }
 			default:
-				Context.error("f must be a function returning a type", cpos);
+				err("f must be a function returning a type", cpos);
 
 		}
 
@@ -151,15 +191,15 @@ class ModuleImpl {
 	{
 		var cpos = Context.currentPos();
 
-		var t = Context.typeof(f);
+		var t = typeofNormalized(f);
 
 		var injectArgs = switch (t) {
 			case TFun(args, Support.isVoid(_) => true):
-				Context.error("the return type of f should be a valid type, not Void", cpos);
+				err("the return type of f should be a valid type, not Void", cpos);
 			case TFun(args, ret):
 				Support.convertArgsToParams(args, cpos);
 			default:
-				Context.error("f must be a function returning a type", cpos);
+				err("f must be a function returning a type", cpos);
 		}
 
 		var args = injectArgs.concat([f]);
@@ -171,15 +211,15 @@ class ModuleImpl {
 	{
 		var cpos = Context.currentPos();
 
-		var t = Context.typeof(f);
+		var t = typeofNormalized(f);
 
 		var injectArgs = switch (t) {
 			case TFun(args, TFun(_,Support.isVoid(_) => false)):
 				Support.convertArgsToParams(args, cpos);
 			case TFun(args, ret):
-				Context.error("the return type of f should be a function which should not return Void", cpos);
+				err("the return type of f should be a function which should not return Void", cpos);
 			default:
-				Context.error("f must be a function returning a function", cpos);
+				err("f must be a function returning a function", cpos);
 		}
 
 		var args = injectArgs.concat([f]);
@@ -187,6 +227,9 @@ class ModuleImpl {
 		return macro $ethis.filterDynamic($name, ( [$a{args}] : Array<Dynamic>) );
 	}
 
+	static function typeofNormalized (f:Expr) {
+		return Support.typeofNormalized(f);
+	}
 
 	public static function controller (ethis:Expr, name:ExprOf<String>, f : ExprOf<Function>):Expr
 	{
