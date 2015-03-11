@@ -266,7 +266,7 @@ class Main
 
 ## Functions can be services and are identified by signature
 
-```
+```haxe
 import angular.*;
 import angular.service.*;
 
@@ -291,3 +291,35 @@ class Main
 }
 ```
 
+## Bundles are auto-composed injectable structures based on other services
+
+```haxe
+package ;
+
+import angular.*;
+import angular.service.*;
+
+typedef Bundle = {
+	x : String,
+	y : Int
+};
+
+typedef AppScope = {
+	data : { title : String }
+};
+
+class Main
+{
+	static function main ()
+	{
+		var module =
+			Angular.module("myModule", [])
+			.factory( function () return 5)
+			.factory( function () return "times")
+			.bundle( ( _ : Bundle ) )
+			.controller("AppController", function (s:TypedScope<AppScope>, bundle:Bundle) {
+				s.data = { title : bundle.y + " " + bundle.x };
+			});
+	}
+}
+```
