@@ -327,8 +327,8 @@ class Main
 Technically `.bundle( ( _ : Bundle ) )` this is just a shortcut for the following code. It becomes really useful for larger bundles with a lot of fields.
 
 ```haxe
-.factory( function (x:String, y:String):Bundle {
-	return { x : y, y : y}
+.factory( function (x:String, y:Int):Bundle {
+	return { x : x, y : y}
 })
 ```
 
