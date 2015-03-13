@@ -206,12 +206,12 @@ class DirectiveBuilder extends DirectiveBuilderMacros
 		return this;
 	}
 
-	public function link (f:LinkingFunction)
+	public function link (f:angular.support.EitherType<LinkingFunction, Scope->Element->Attributes->Void>)
 	{
-
 		_link = Some(f);
 		return this;
 	}
+
 
 	public function linkPreAndPost (pre:LinkingFunction, post:LinkingFunction)
 	{
