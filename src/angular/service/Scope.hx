@@ -21,6 +21,11 @@ extern class Scope
 	@:overload(function (expr:String):Dynamic {})
 	@:native("$eval") public function eval<T>(f:Scope->T):T;
 
+	@:overload(function ():Void {}) // ?? not sure
+	@:overload(function (f:Void->Void):Void {})
+	@:overload(function (expr:String):Void {})
+	@:native("$evalAsync") public function evalAsync<T>(f:Scope->T):Void;
+
 	@:native("$parent")public var parent:Scope;
 
 	@:native("$destroy") public function destroy():Void;
@@ -36,7 +41,8 @@ extern class Scope
 
 	@:native("$broadcast") public function broadcast(name:String, ?data:Dynamic):Void;
 
-	@:native("$watch") public function watch<T>(expr:String, listener:T->T->?Scope->Void, ?objectEquality:Bool = false):UnregisterFn;
+	@:overload(function <T>(expr:String, listener:T->T->Void, ?objectEquality:Bool = false):UnregisterFn {})
+	@:native("$watch") public function watch<T>(expr:String, listener:T->T->Scope->Void, ?objectEquality:Bool = false):UnregisterFn;
 
 	@:native("$watchGroup") public function watchGroup<T>(expr:Array<String>, listener:Array<T>->Array<T>->?Scope->Void):UnregisterFn;
 
