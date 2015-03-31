@@ -182,6 +182,12 @@ class DirectiveBuilder extends DirectiveBuilderMacros
 		return this;
 	}
 
+	public function templateFunc2 (x:Element->Attributes->String)
+	{
+		_template = Some(x);
+		return this;
+	}
+
 	public function templateConst (x:String)
 	{
 		_template = Some(function () return x);
