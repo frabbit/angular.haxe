@@ -43,7 +43,7 @@ class DirectiveBuilder extends DirectiveBuilderMacros
 	var _replace : Option<Bool>;
 	var _restrict : Option<String>;
 	var _scope : StringMap<String>;
-	var _template : Option<Void->String>;
+	var _template : Option<Dynamic>;
 	var _controller : Option<Dynamic>;
 
 	var _link : Option<Dynamic>;
