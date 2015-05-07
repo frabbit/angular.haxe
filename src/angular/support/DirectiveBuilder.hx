@@ -24,6 +24,7 @@ enum LinkOp {
 	At;
 	Eq;
 	And;
+	Optional(op:LinkOp);
 }
 
 class LinkOps {
@@ -32,6 +33,7 @@ class LinkOps {
 		case At: "@";
 		case Eq: "=";
 		case And: "&";
+		case Optional(op): toString(op) + "?";
 	}
 }
 
