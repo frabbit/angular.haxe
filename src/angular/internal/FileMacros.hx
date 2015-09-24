@@ -83,6 +83,8 @@ class FileMacros {
 		{
 			path;
 		}
+		var m = Context.getLocalClass().get().module;
+		Context.registerModuleDependency(m, file);
 		var content = sys.io.File.getContent(file);
 
 		return macro $v{content};
