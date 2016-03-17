@@ -70,9 +70,10 @@ extern class Scope
 		return Reflect.field(this, field);
 	}
 
-	public inline function set (field:String, val:Dynamic):Void
+	public inline function set (field:String, val:Dynamic):Scope
 	{
 		Reflect.setField(this, field, val);
+    return this;
 	}
 
 	public inline function safeApply(f:Void->Void):Void
