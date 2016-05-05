@@ -49,6 +49,8 @@ extern class Angular {
 
 	public static function injector (?name:String, ?modules:Array<String>):Injector;
 
+	public static function fromJson(str:String):Dynamic;
+
 	public static function toJson(obj:Dynamic, ?pretty:Bool):String;
 
 	public static function isDefined(value:Dynamic):Bool;
